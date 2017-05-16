@@ -1,0 +1,4 @@
+app.controller('testController', ['$scope', function($scope){
+	alert('testing controller..!');
+}])
+

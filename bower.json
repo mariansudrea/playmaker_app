@@ -1,0 +1,17 @@
+{
+  "name": "SOCCER_PLAY_APP",
+  "authors": [
+    "Marian Udrea <smenarru@gmail.com>"
+  ],
+  "description": "attempt at testing with karma and jasmine",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
