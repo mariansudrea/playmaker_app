@@ -1,1 +1,12 @@
-TESTING TESTING
+	<div class="frame_selector_area">
+		<div class="frame_selector_button" ng-click="goToFrame(i)" ng-repeat="i in frames">
+			{{ i }}		
+		</div>
+	</div>
+<div class="field">
+	<div class="grid_square" ng-repeat="i in grid_size">
+	</div>	
+	<div class="player" ng-style="i.current_style" ng-repeat="i in players">
+	<!--div class="player" ng-repeat="i in players" ng-class="player1.position"-->
+	</div>
+</div>
