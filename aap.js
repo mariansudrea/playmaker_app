@@ -8,8 +8,8 @@ function($stateProvider, $urlRouterProvider) {
       $stateProvider
       .state('test', {
           	url: '/test',
-//			templateUrl: 'test/_test.html',
-			template: 'hello',
+			templateUrl: '/js/test/_test.html',
+//			template: 'hello',
 			controller: 'testController'
 		});
 		$urlRouterProvider.otherwise('test');
