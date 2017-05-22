@@ -15,15 +15,26 @@ height:38px;
 border:1px solid #38cc24;
 position:relative;
 float:left;
+border-radius:20px;
+}
+.grid_square:hover
+{
+background-color:pink;
 }
 .player
 {
 position:absolute;
-width:40px;
-height:40px;
+width:38px;
+height:38px;
+line-height:40px;
+font-weight: 800;
+font-family:sans-serif;
+text-align:center;
 border-radius:20px;
-background-color:gray;
-transition:2s all;
+border:1px solid transparent;
+text-shadow: 0px 0px 5px rgba(172, 255, 117, 1);
+/*background-color:gray;*/
+transition:1.5s all cubic-bezier(.5,0,.5,1);
 }
 .frame_selector_area
 {
@@ -47,4 +58,34 @@ float:left;
 font-size:20px;
 line-height:40px;
 text-align:center
+}
+.playback_button
+{
+position:relative;
+float:left;
+width:100px;
+margin-left:300px;
+height:50px;
+font-size:40px;
+line-height:40px;
+border:3px solid black;
+border-radius:15px;
+text-align:center;
+}
+.highlighted
+{
+-webkit-box-shadow: 0px 0px 60px 0px rgba(50, 245, 50, 1);
+-moz-box-shadow:    0px 0px 60px 0px rgba(50, 245, 50, 1);
+box-shadow:         0px 0px 60px 0px rgba(250, 245, 250, 1);
+background-color:black !important;
+}
+.selected_player_controls
+{
+width:1000px;
+margin: 30px 0 0 0;
+height:90px;
+background-color:yellow;
+border-bottom:1px solid black;
+position:relative;
+float:left;
 }

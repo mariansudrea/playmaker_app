@@ -1,12 +1,28 @@
+	<div class="playback_button" ng-click="playback()">
+		Play
+	</div>
+	<div class="selected_player_controls">
+		Selected player: 
+			<input ng-model="selected_player.jersey_number"></input>	
+		positioni X : 
+			<input ng-model="selected_player.frames[current_frame_index].posX" ng-change="updateSelectedPlayer()">
+			</input>
+		Position X : input
+		positioni Y : {{ selected_player.frames[current_frame_index].posY }}
+		highlighted at position? : {{ selected_player.frames[current_frame_index].highlighted }}
+		</br>
+		<input ng-change="updateSelectedPlayer()" ng-model="selected_player.frames[current_frame_index].highlighted" type="checkbox">highlighted at this frame ?</input>
+	</div>
 	<div class="frame_selector_area">
 		<div class="frame_selector_button" ng-click="goToFrame(i)" ng-repeat="i in frames">
 			{{ i }}		
 		</div>
 	</div>
 <div class="field">
-	<div class="grid_square" ng-repeat="i in grid_size">
+	<div class="grid_square" ng-repeat="i in grid_size" ng-click="moveSelectedPlayer(i)">
 	</div>	
-	<div class="player" ng-style="i.current_style" ng-repeat="i in players">
+	<div ng-click="toggleSelected(i)" class="player" ng-style="i.current_style" ng-repeat="i in players">
+		{{ i.jersey_number }}
 	<!--div class="player" ng-repeat="i in players" ng-class="player1.position"-->
 	</div>
 </div>
