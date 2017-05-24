@@ -1,5 +1,9 @@
+<div class="view_container">
 	<div class="playback_button" ng-click="playback()">
 		Play
+	</div>
+	<div class="playback_button" ng-click="modal_visible=true">
+		New Play / Reset	
 	</div>
 	<div class="selected_player_controls">
 		Selected player: 
@@ -18,11 +22,63 @@
 			{{ i }}		
 		</div>
 	</div>
-<div class="field">
-	<div class="grid_square" ng-repeat="i in grid_size" ng-click="moveSelectedPlayer(i)">
-	</div>	
-	<div ng-click="toggleSelected(i)" class="player" ng-style="i.current_style" ng-repeat="i in players">
-		{{ i.jersey_number }}
-	<!--div class="player" ng-repeat="i in players" ng-class="player1.position"-->
+	<div class="frame_selector_area" ng-click="toggleMode()">
+		<div>
+			{{ mode }}
+		</div>
 	</div>
+	<div class="field">
+		<div class="grid_square" ng-repeat="i in grid_size" ng-click="moveSelectedPlayer(i)">
+		</div>	
+		<div ng-click="toggleSelected(i)" class="player" ng-style="i.current_style" ng-repeat="i in players">
+			{{ i.jersey_number }}
+		<!--div class="player" ng-repeat="i in players" ng-class="player1.position"-->
+		</div>
+	</div>
+	<div class="debug">
+		{{ play_data_model }}	
+fewoijfewoijfew
+	</div>
+	
+	
+	<div class="new_play_container" ng-show="modal_visible">
+		<div class="input_label">
+			Team 1 players: (1-7)
+		</div>
+		<input type="number" ng-change="updatePreviewTeams()" class="new_play_input" ng-model="team1_input"> </input>
+		<div class="input_label">
+			Team 2 players: (1-7)
+		</div>
+	
+		 <input type="number" ng-change="updatePreviewTeams()" ng-model="team2_input" class="new_play_input"></input>
+		<div class="input_label">
+			Frames(1-15): 
+		</div>
+		 <input type="number" class="new_play_input" ng-change="updatePreviewTeams()" ng-model="frames_input" ></input>
+		<div class="input_label">
+			Team 1 color: (english / hex)
+		</div>
+		<input type="textbox" class="new_play_input" ng-model="team1_temp_color" ng-change="updatePreviewTeams()"> </input>
+		<div class="input_label">
+			Team 2 color: (english / hex)
+		</div>
+		<input type="textbox" class="new_play_input" ng-model="team2_temp_color" ng-change="updatePreviewTeams()"> </input>
+		<div class="team_preview">
+			<div class="preview_player" ng-repeat="a in team1_preview track by $index" ng-style="team1_temp_style">
+			</div>
+		</div>
+		<div class="team_preview">
+			<div class="preview_player" ng-repeat="a in team2_preview track by $index" ng-style="team2_temp_style">
+			</div>
+		</div>
+		<div class ="new_play_submit" ng-click="generateNewPlay()">
+			GENERATE NEW PLAY
+		</div>
+	</div>
+	<div ng-show="modal_visible" class="overlay">
+	</div>
+
+
+
+<!-- view end -->
 </div>
