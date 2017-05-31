@@ -1,43 +1,62 @@
 <div class="view_container">
-	<div class="playback_button" ng-click="playback()">
-		Play
+	<div class="playback_button" style="width:70px" ng-click="playback()">
+		<div class="playback_arrow">
+		</div>
+	</div>
+	<div class="playback_button" style="width:100px" ng-click="save()">
+		Save to URL
 	</div>
 	<div class="playback_button" ng-click="modal_visible=true">
 		New Play / Reset	
 	</div>
-	<div class="selected_player_controls">
-		Selected player: 
-			<input ng-model="selected_player.jersey_number"></input>	
-		positioni X : 
-			<input ng-model="selected_player.frames[current_frame_index].posX" ng-change="updateSelectedPlayer()">
-			</input>
-		Position X : input
-		positioni Y : {{ selected_player.frames[current_frame_index].posY }}
-		highlighted at position? : {{ selected_player.frames[current_frame_index].highlighted }}
-		</br>
-		<input ng-change="updateSelectedPlayer()" ng-model="selected_player.frames[current_frame_index].highlighted" type="checkbox">highlighted at this frame ?</input>
-	</div>
-	<div class="frame_selector_area">
-		<div class="frame_selector_button" ng-click="goToFrame(i)" ng-repeat="i in frames">
-			{{ i }}		
-		</div>
-	</div>
-	<div class="frame_selector_area" ng-click="toggleMode()">
-		<div>
+	<div class="playback_button" ng-click="toggleMode()">
 			{{ mode }}
-		</div>
+	</div>
+	<div class="playback_button" ng-click="toggleHighlighted()">
+			highlight: {{ selected_player.frames[current_frame_index].highlighted }}
+	</div>
+	<div class="playback_button" ng-click="toggleMode()">
+		Selected player: {{ selected_player.jersey_number }} 
 	</div>
 	<div class="field">
+	    <div class="center_circle">
+	    </div>
+		<div class="halfway_line">
+		</div>
+		 <div class="left_box">
+		</div>
+		 <div class="right_box">
+		</div>
+		 <div class="yellow_line_left">
+		</div>
+		 <div class="yellow_line_right">
+		</div>
 		<div class="grid_square" ng-repeat="i in grid_size" ng-click="moveSelectedPlayer(i)">
 		</div>	
-		<div ng-click="toggleSelected(i)" class="player" ng-style="i.current_style" ng-repeat="i in players">
+		<div ng-click="toggleSelected(i)" ng-class="{player: true, selected: selected_player ==players[$index]}" ng-style="i.current_style" ng-repeat="i in players track by $index">
 			{{ i.jersey_number }}
 		<!--div class="player" ng-repeat="i in players" ng-class="player1.position"-->
 		</div>
 	</div>
+	<div class="frame_selector_area">
+		<div ng-style="frame_styles[$index]"ng-class="{frame_selector_button: true,frame_selected: current_frame_index == $index }"ng-click="goToFrame(i)" ng-repeat="i in frames track by $index">
+			{{ i+1 }}		
+		</div>
+		<div class="frame_selector_button" ng-click="addFrame()">
+			+
+		</div>
+		<div class="frame_selector_button" ng-click="removeFrame()">
+			-	
+		</div>
+	</div>
 	<div class="debug">
+		<textarea class="play_input" ng-model="input_play"></textarea>
+		</hr>
+		<div ng-click="decompressPlay()">
+			DECOMPRESS	
+		</div>
+		</hr>
 		{{ play_data_model }}	
-fewoijfewoijfew
 	</div>
 	
 	
@@ -75,7 +94,7 @@ fewoijfewoijfew
 			GENERATE NEW PLAY
 		</div>
 	</div>
-	<div ng-show="modal_visible" class="overlay">
+	<div ng-show="modal_visible" ng-click="modal_visible=false" class="overlay">
 	</div>
 
 
