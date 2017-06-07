@@ -1,22 +1,20 @@
 <div class="view_container">
-	<div class="playback_button" style="width:70px" ng-click="playback()">
+	<div class="playback_button" style="width:70px" ng-click="frameService.playback(env,player,players)">
 		<div class="playback_arrow">
 		</div>
 	</div>
-	<div class="playback_button" style="width:100px" ng-click="save()">
+	<div class="playback_button" style="width:100px" ng-click="env.save(player,players)">
 		Save to URL
 	</div>
-	<div class="playback_button" ng-click="env.modal_visible=true;updatePreviewTeams()">
+	<div class="playback_button" ng-click="env.modal_visible=true;env.updatePreviewTeams()">
 		New Play / Reset	
 	</div>
-	<div ng-style="env.frame_styles[env.frames.length-1]" class="playback_button" ng-click="toggleMode()">
+	<div class="playback_button" ng-click="env.toggleMode()">
 			{{ env.mode }} mode
 	</div>
-	<div ng-show="selected_player!=null" class="playback_button" ng-click="toggleHighlighted(selected_player,env.current_frame_index)">
-			highlight: {{ selected_player.frames[env.current_frame_index].highlighted }}
-	</div>
-	<div ng-show="selected_player!=null" class="playback_button" ng-click="toggleMode()">
-		Selected player: {{ selected_player.jersey_number }} 
+	<div ng-show="env.selected_player!=null" style="width:200px" class="playback_button" ng-click="env.toggleHighlighted(player)">
+		 {{ env.selected_player.jersey_number }} // 
+			{{ env.selected_player.frames[env.current_frame_index].highlighted ? "highlighted" : "not highlighted" }}
 	</div>
 	<div class="field">
 	    <div class="center_circle">
@@ -31,28 +29,28 @@
 		</div>
 		 <div class="yellow_line_right">
 		</div>
-		<div class="grid_square" ng-repeat="i in env.grid_size" ng-click="moveSelectedPlayer(i)">
+		<div class="grid_square" ng-repeat="i in env.grid_size" ng-click="env.moveSelectedPlayer(i,player)">
 		</div>	
-		<div ng-click="toggleSelected(i)" ng-class="{player: true, selected: selected_player ==players[$index]}" ng-style="i.current_style" ng-repeat="i in players track by $index">
+		<div ng-click="env.toggleSelected(i)" ng-class="{player: true, selected: env.selected_player ==players[$index]}" ng-style="i.current_style" ng-repeat="i in players track by $index">
 			{{ i.jersey_number }}
 		<!--div class="player" ng-repeat="i in players" ng-class="player1.position"-->
 		</div>
 	</div>
 	<div class="frame_selector_area">
-		<div ng-style="env.frame_styles[$index]"ng-class="{frame_selector_button: true,frame_selected: env.current_frame_index == $index }"ng-click="env.goToFrame(i,player,players)" ng-repeat="i in env.frames track by $index">
+		<div ng-style="env.frame_styles[$index]"ng-class="{frame_selector_button: true,frame_selected: env.current_frame_index == $index }"ng-click="frameService.goToFrame(i,player,players,env)" ng-repeat="i in env.frames track by $index">
 			{{ i+1 }}		
 		</div>
-		<div class="frame_selector_button" ng-click="addFrame()">
+		<div class="frame_selector_button" ng-click="frameService.addFrame(env,players)">
 			+
 		</div>
-		<div class="frame_selector_button" ng-click="removeFrame()">
+		<div class="frame_selector_button" ng-click="frameService.removeFrame(env,players,player)">
 			-	
 		</div>
 	</div>
 	<div class="debug">
 		<textarea class="play_input" ng-model="env.input_play"></textarea>
 		</hr>
-		<div ng-click="players=[];player.decompressPlay(env,css_colors,players)">
+		<div ng-click="players=[];player.decompressPlay(env,css_colors,players,frameService)">
 			DECOMPRESS	
 		</div>
 		</hr>
@@ -64,24 +62,24 @@
 		<div class="input_label">
 			Team 1 players: (1-7)
 		</div>
-		<input type="number" ng-change="updatePreviewTeams()" class="new_play_input" ng-model="env.team1_input"> </input>
+		<input type="number" ng-change="env.updatePreviewTeams()" class="new_play_input" ng-model="env.team1_input"> </input>
 		<div class="input_label">
 			Team 2 players: (1-7)
 		</div>
 	
-		 <input type="number" ng-change="updatePreviewTeams()" ng-model="env.team2_input" class="new_play_input"></input>
+		 <input type="number" ng-change="env.updatePreviewTeams()" ng-model="env.team2_input" class="new_play_input"></input>
 		<div class="input_label">
-			Frames(1-15): 
+			Frames(1-10): 
 		</div>
-		 <input type="number" class="new_play_input" ng-change="updatePreviewTeams()" ng-model="env.frames_input" ></input>
+		 <input type="number" class="new_play_input" ng-change="env.updatePreviewTeams()" ng-model="env.frames_input" ></input>
 		<div class="input_label">
-			Team 1 color: (<span class="cursor_pointer" ng-click="env.randomize(1,css_colors);updatePreviewTeams()"> <u>randomize</u> </span>)
+			Team 1 color: (<span class="cursor_pointer" ng-click="env.randomize(1,css_colors);env.updatePreviewTeams()"> <u>randomize</u> </span>)
 		</div>
-		<input type="textbox" class="new_play_input" ng-model="env.team1_temp_color" ng-change="updatePreviewTeams()"> </input>
+		<input type="textbox" class="new_play_input" ng-model="env.team1_temp_color" ng-change="env.updatePreviewTeams()"> </input>
 		<div class="input_label">
-			Team 2 color: (<span class="cursor_pointer" ng-click="env.randomize(2,css_colors);updatePreviewTeams()"> <u>randomize</u> </span>)
+			Team 2 color: (<span class="cursor_pointer" ng-click="env.randomize(2,css_colors);env.updatePreviewTeams()"> <u>randomize</u> </span>)
 		</div>
-		<input type="textbox" class="new_play_input" ng-model="env.team2_temp_color" ng-change="updatePreviewTeams()"> </input>
+		<input type="textbox" class="new_play_input" ng-model="env.team2_temp_color" ng-change="env.updatePreviewTeams()"> </input>
 		<div class="team_preview">
 			<div class="preview_player" ng-repeat="a in env.team1_preview track by $index" ng-style="env.team1_temp_style">
 			</div>
@@ -91,7 +89,7 @@
 			</div>
 		</div>
 <!--			<div class="new_play_submit" ng-click="newPlay()">	-->
-		<div class="new_play_submit" ng-click="selectedPlayer={};players=[];env.frames=[];player.newPlay(env,css_colors,selected_player,players)">
+		<div class="new_play_submit" ng-click="player.newPlay(env,css_colors,players)">
 			GENERATE NEW PLAY
 		</div>
 	</div>

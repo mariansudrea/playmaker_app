@@ -6,6 +6,7 @@ app.factory('playerService', function(){
 		this['background-color'] = color;
 		this['box-shadow'] = ( highlighted ? "0px 0px 20px 6px " + color : "none" );
 	}	
+	serviceObj.GeneratedStyle = GeneratedStyle;
 	var transition = function(index){
 		this.current_style = new GeneratedStyle(this.frames[index].posX,this.frames[index].posY,this.default_color,this.frames[index].highlighted)
 	}
@@ -20,7 +21,7 @@ app.factory('playerService', function(){
 
 
 //****************************** PLAY COMPRESSION / DECOMPRESSION
-	serviceObj.decompressPlay = function(env,css_colors,players){
+	serviceObj.decompressPlay = function(env,css_colors,players,frameService){
 		var first6_end_index = env.input_play.indexOf("_");
 		var first6 = env.input_play.substring(0,first6_end_index)
 		console.log('first6: ' + first6);
@@ -50,11 +51,16 @@ app.factory('playerService', function(){
 			env.frames.push(i);
 		}
 		ball_style = players[players.length-1].current_style; 
-		players[players.length-1].jersey_number = "";
+		players[players.length-1].jersey_number = "ball";
+		players[players.length-1].default_color = "aqua";
+		env.toggleSelected(players[players.length-1]);
+		env.updateSelectedPlayer(serviceObj);
+		env.toggleSelected(players[players.length-1]);
+		
 		for ( i in env.ball_style ){
 			ball_style[i] = env.ball_style[i];
 		}
-		env.goToFrame(0,this,players);
+		frameService.goToFrame(0,this,players,env);
 	}
 	serviceObj.decompressPlayer = function(player,jersey,colors,env){
 		var compressed_frames_array = []
@@ -120,7 +126,11 @@ app.factory('playerService', function(){
 	}
 
 //******************************
-	serviceObj.newPlay = function(env,css_colors,selected_player,players_array){
+	serviceObj.newPlay = function(env,css_colors,players_array){
+		console.log('new play , players array : ' + players_array);
+		players_array.length = 0;
+		env.selected_player = null;
+		env.frames.length = 0;
 		var a = env.team1_temp_color.toLowerCase();
 		var b = env.team2_temp_color.toLowerCase();
 		if ( css_colors.indexOf(a) != -1 ) {
