@@ -6,16 +6,16 @@
 	<div class="playback_button" style="width:100px" ng-click="save()">
 		Save to URL
 	</div>
-	<div class="playback_button" ng-click="modal_visible=true">
+	<div class="playback_button" ng-click="env.modal_visible=true;updatePreviewTeams()">
 		New Play / Reset	
 	</div>
-	<div class="playback_button" ng-click="toggleMode()">
-			{{ mode }}
+	<div ng-style="env.frame_styles[env.frames.length-1]" class="playback_button" ng-click="toggleMode()">
+			{{ env.mode }} mode
 	</div>
-	<div class="playback_button" ng-click="toggleHighlighted()">
+	<div ng-show="selected_player!=null" class="playback_button" ng-click="toggleHighlighted(selected_player,current_frame_index)">
 			highlight: {{ selected_player.frames[current_frame_index].highlighted }}
 	</div>
-	<div class="playback_button" ng-click="toggleMode()">
+	<div ng-show="selected_player!=null" class="playback_button" ng-click="toggleMode()">
 		Selected player: {{ selected_player.jersey_number }} 
 	</div>
 	<div class="field">
@@ -31,7 +31,7 @@
 		</div>
 		 <div class="yellow_line_right">
 		</div>
-		<div class="grid_square" ng-repeat="i in grid_size" ng-click="moveSelectedPlayer(i)">
+		<div class="grid_square" ng-repeat="i in env.grid_size" ng-click="moveSelectedPlayer(i)">
 		</div>	
 		<div ng-click="toggleSelected(i)" ng-class="{player: true, selected: selected_player ==players[$index]}" ng-style="i.current_style" ng-repeat="i in players track by $index">
 			{{ i.jersey_number }}
@@ -39,7 +39,7 @@
 		</div>
 	</div>
 	<div class="frame_selector_area">
-		<div ng-style="frame_styles[$index]"ng-class="{frame_selector_button: true,frame_selected: current_frame_index == $index }"ng-click="goToFrame(i)" ng-repeat="i in frames track by $index">
+		<div ng-style="env.frame_styles[$index]"ng-class="{frame_selector_button: true,frame_selected: current_frame_index == $index }"ng-click="goToFrame(i)" ng-repeat="i in env.frames track by $index">
 			{{ i+1 }}		
 		</div>
 		<div class="frame_selector_button" ng-click="addFrame()">
@@ -60,41 +60,42 @@
 	</div>
 	
 	
-	<div class="new_play_container" ng-show="modal_visible">
+	<div class="new_play_container" ng-show="env.modal_visible">
 		<div class="input_label">
 			Team 1 players: (1-7)
 		</div>
-		<input type="number" ng-change="updatePreviewTeams()" class="new_play_input" ng-model="team1_input"> </input>
+		<input type="number" ng-change="updatePreviewTeams()" class="new_play_input" ng-model="env.team1_input"> </input>
 		<div class="input_label">
 			Team 2 players: (1-7)
 		</div>
 	
-		 <input type="number" ng-change="updatePreviewTeams()" ng-model="team2_input" class="new_play_input"></input>
+		 <input type="number" ng-change="updatePreviewTeams()" ng-model="env.team2_input" class="new_play_input"></input>
 		<div class="input_label">
 			Frames(1-15): 
 		</div>
-		 <input type="number" class="new_play_input" ng-change="updatePreviewTeams()" ng-model="frames_input" ></input>
+		 <input type="number" class="new_play_input" ng-change="updatePreviewTeams()" ng-model="env.frames_input" ></input>
 		<div class="input_label">
-			Team 1 color: (english / hex)
+			Team 1 color: (<span class="cursor_pointer" ng-click="env.randomize(1,css_colors);updatePreviewTeams()"> <u>randomize</u> </span>)
 		</div>
-		<input type="textbox" class="new_play_input" ng-model="team1_temp_color" ng-change="updatePreviewTeams()"> </input>
+		<input type="textbox" class="new_play_input" ng-model="env.team1_temp_color" ng-change="updatePreviewTeams()"> </input>
 		<div class="input_label">
-			Team 2 color: (english / hex)
+			Team 2 color: (<span class="cursor_pointer" ng-click="env.randomize(2,css_colors);updatePreviewTeams()"> <u>randomize</u> </span>)
 		</div>
-		<input type="textbox" class="new_play_input" ng-model="team2_temp_color" ng-change="updatePreviewTeams()"> </input>
+		<input type="textbox" class="new_play_input" ng-model="env.team2_temp_color" ng-change="updatePreviewTeams()"> </input>
 		<div class="team_preview">
-			<div class="preview_player" ng-repeat="a in team1_preview track by $index" ng-style="team1_temp_style">
+			<div class="preview_player" ng-repeat="a in env.team1_preview track by $index" ng-style="env.team1_temp_style">
 			</div>
 		</div>
 		<div class="team_preview">
-			<div class="preview_player" ng-repeat="a in team2_preview track by $index" ng-style="team2_temp_style">
+			<div class="preview_player" ng-repeat="a in env.team2_preview track by $index" ng-style="env.team2_temp_style">
 			</div>
 		</div>
-		<div class ="new_play_submit" ng-click="generateNewPlay()">
+<!--			<div class="new_play_submit" ng-click="newPlay()">	-->
+		<div class="new_play_submit" ng-click="selectedPlayer={};players=[];env.frames=[];player.newPlay(env,css_colors,selected_player,players)">
 			GENERATE NEW PLAY
 		</div>
 	</div>
-	<div ng-show="modal_visible" ng-click="modal_visible=false" class="overlay">
+	<div ng-show="env.modal_visible" ng-click="env.modal_visible=false" class="overlay">
 	</div>
 
 
