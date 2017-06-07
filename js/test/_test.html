@@ -12,8 +12,8 @@
 	<div ng-style="env.frame_styles[env.frames.length-1]" class="playback_button" ng-click="toggleMode()">
 			{{ env.mode }} mode
 	</div>
-	<div ng-show="selected_player!=null" class="playback_button" ng-click="toggleHighlighted(selected_player,current_frame_index)">
-			highlight: {{ selected_player.frames[current_frame_index].highlighted }}
+	<div ng-show="selected_player!=null" class="playback_button" ng-click="toggleHighlighted(selected_player,env.current_frame_index)">
+			highlight: {{ selected_player.frames[env.current_frame_index].highlighted }}
 	</div>
 	<div ng-show="selected_player!=null" class="playback_button" ng-click="toggleMode()">
 		Selected player: {{ selected_player.jersey_number }} 
@@ -39,7 +39,7 @@
 		</div>
 	</div>
 	<div class="frame_selector_area">
-		<div ng-style="env.frame_styles[$index]"ng-class="{frame_selector_button: true,frame_selected: current_frame_index == $index }"ng-click="goToFrame(i)" ng-repeat="i in env.frames track by $index">
+		<div ng-style="env.frame_styles[$index]"ng-class="{frame_selector_button: true,frame_selected: env.current_frame_index == $index }"ng-click="env.goToFrame(i,player,players)" ng-repeat="i in env.frames track by $index">
 			{{ i+1 }}		
 		</div>
 		<div class="frame_selector_button" ng-click="addFrame()">
@@ -50,13 +50,13 @@
 		</div>
 	</div>
 	<div class="debug">
-		<textarea class="play_input" ng-model="input_play"></textarea>
+		<textarea class="play_input" ng-model="env.input_play"></textarea>
 		</hr>
-		<div ng-click="decompressPlay()">
+		<div ng-click="players=[];player.decompressPlay(env,css_colors,players)">
 			DECOMPRESS	
 		</div>
 		</hr>
-		{{ play_data_model }}	
+		{{ env.play_data_model }}	
 	</div>
 	
 	
