@@ -1,18 +1,39 @@
 <div class="view_container">
-	<div class="playback_button" style="width:70px" ng-click="frameService.playback(env,player,players)">
+	<div ng-hide="env.playing" class="control_button playback_arrow_container gradient1" style="width:70px" ng-click="frameService.playback(env,player,players)">
 		<div class="playback_arrow">
 		</div>
 	</div>
-	<div class="playback_button" style="width:100px" ng-click="env.save(player,players)">
+	<div ng-show="env.playing" class="control_button stop_square_container gradient1" style="width:70px" ng-click="frameService.stopPlayback(env)">
+		<div class="stop_square">
+		</div>
+	</div>
+	<div class="control_button gradient1 limePointerHover" style="width:100px" ng-click="env.save(player,players)">
 		Save to URL
 	</div>
-	<div class="playback_button" ng-click="env.modal_visible=true;env.updatePreviewTeams()">
-		New Play / Reset	
+	<div ng-hide="env.playing" style="width:80px" class="control_button gradient1 limePointerHover" ng-click="env.modal_visible=true;env.updatePreviewTeams()">
+		New 	
 	</div>
-	<div class="playback_button" ng-click="env.toggleMode()">
-			{{ env.mode }} mode
+	<div style="width:80px" class="control_button gradient1" ng-show="env.playing">
+		New 	
+		<div class="overlay controls_overlay" ng-show="env.playing">
+		</div>
 	</div>
-	<div ng-show="env.selected_player!=null" style="width:200px" class="playback_button" ng-click="env.toggleHighlighted(player)">
+	<div style="width:80px" class="control_button gradient1 limePointerHover" ng-click="env.toggleMode()">
+			{{ env.mode }} 
+	</div>
+	<div style="margin-left:5px;width:45px;border-radius:15px 0 0 15px !important" class="control_button gradient1 down_arrow_container" ng-click="player.changeSpeed(players,env,'down')">
+		<div class="up_arrow" style="border-width:12px 6px 0 6px"></div>
+	</div>
+	<div style="width:60px;border-radius:0;margin:0" class="control_button gradient1">
+		speed: <b>{{ player.speeds_index }}</b>
+	</div>
+	<div class="control_button gradient1 up_arrow_container" ng-click="player.changeSpeed(players,env,'up')">
+		<div class="up_arrow"></div>
+	</div>
+	<div class="control_button gradient1 limePointerHover" style="width:100px" ng-click="player.toggleTransitionType(players,env)">
+		{{ player.transition_type }}
+	</div>
+	<div ng-show="env.selected_player!=null" style="width:170px" class="control_button gradient1 limePointerHover" ng-click="env.toggleHighlighted(player)">
 		 {{ env.selected_player.jersey_number }} // 
 			{{ env.selected_player.frames[env.current_frame_index].highlighted ? "highlighted" : "not highlighted" }}
 	</div>
@@ -37,7 +58,7 @@
 		</div>
 	</div>
 	<div class="frame_selector_area">
-		<div ng-style="env.frame_styles[$index]"ng-class="{frame_selector_button: true,frame_selected: env.current_frame_index == $index }"ng-click="frameService.goToFrame(i,player,players,env)" ng-repeat="i in env.frames track by $index">
+		<div ng-style="env.frame_styles[$index]" ng-class="{frame_selector_button: true,frame_selected: env.current_frame_index == $index }" ng-click="frameService.goToFrame(i,player,players,env)" ng-repeat="i in env.frames track by $index">
 			{{ i+1 }}		
 		</div>
 		<div class="frame_selector_button" ng-click="frameService.addFrame(env,players)">
@@ -45,6 +66,8 @@
 		</div>
 		<div class="frame_selector_button" ng-click="frameService.removeFrame(env,players,player)">
 			-	
+		</div>
+		<div class="overlay controls_overlay" ng-show="env.playing">
 		</div>
 	</div>
 	<div class="debug">

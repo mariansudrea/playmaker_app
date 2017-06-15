@@ -14,19 +14,26 @@ app.factory('frameService',['$timeout', function($timeout){
 		player.compressPlay(env,players);
 	}
 	serviceInstance.playback = function(env,player,players){
+		env.playing = true;
+		env.selected_player = null;
 		var goToNext = function(){
 			serviceInstance.goToFrame(env.current_frame_index+1,player,players,env)
 			if ( env.current_frame_index < env.frames.length-1 ) {
-				$timeout( function(){goToNext()}, 1500 )
-			}
+				env.playback_timeout = $timeout( function(){goToNext()}, player.speeds[player.speeds_index] * 1000 )
+			} else { env.playing = false;}
 		}
 		if ( env.current_frame_index != 0 ){
 			serviceInstance.goToFrame(0,player,players,env);
-			$timeout( function(){ goToNext() },2300)
+			env.playback_timeout = $timeout( function(){ goToNext() },(player.speeds[player.speeds_index] * 1000)+400)
 		} else {
 			goToNext()
 		}
 
+	}
+	serviceInstance.stopPlayback = function(env){
+		console.log('stopping playback function----');
+		$timeout.cancel(env.playback_timeout);
+		env.playing = false;
 	}
 	serviceInstance.removeFrame = function(env,players,player){
 		if ( env.frames.length > 1 ){

@@ -57,7 +57,7 @@ app.factory('envService',['$timeout','$location', function($timeout,$location){
 	}
 	env.updateSelectedPlayer = function(player){
 		var frm = this.selected_player.frames[this.current_frame_index];
-		this.selected_player.current_style = new player.GeneratedStyle(frm.posX,frm.posY,this.selected_player.default_color,frm.highlighted);
+		env.selected_player.current_style = new player.GeneratedStyle(frm.posX,frm.posY,this.selected_player.default_color,frm.highlighted);
 		if ( this.mode == "create" ) { this.flashFrames() } // create mode animation	
 	}
 	env.flashFrames = function(){
@@ -90,9 +90,25 @@ app.factory('envService',['$timeout','$location', function($timeout,$location){
 			env.updateSelectedPlayer(player);
 		}
 	}
+	env.toggleHighlighted = function(player){
+		console.log('toggling Highlight');
+		var new_highlight_state = ( env.selected_player.frames[env.current_frame_index].highlighted ? false : true ); 
+		if ( env.mode == "edit" ){
+			env.selected_player.frames[env.current_frame_index].highlighted = new_highlight_state;
+		} else {
+			for ( var i = env.current_frame_index ; i < env.frames.length ; i++ ){
+				env.selected_player.frames[i].highlighted = new_highlight_state;
+			}
+		}
+		
+		env.updateSelectedPlayer(player);
+	}
 	
 	env.toggleMode = function(){
 		env.mode = ( env.mode == "edit" ? "create" : "edit" );
+	}
+	env.toggleAnimationType = function(players){
+//		env.transition_type =  
 	}
 	env.updatePreviewTeams = function(){
 		var validateMinMax = function(input,min,max){
@@ -116,11 +132,6 @@ app.factory('envService',['$timeout','$location', function($timeout,$location){
 		env.frames_input_validated = frames_val;
 	}
 
-	env.toggleHighlighted = function(player){
-		console.log('toggling Highlight');
-		env.selected_player.frames[env.current_frame_index].highlighted = ( env.selected_player.frames[env.current_frame_index].highlighted ? false : true )
-		env.updateSelectedPlayer(player);
-	}
 
 	env.save = function(player,players){
 		player.compressPlay(env,players);

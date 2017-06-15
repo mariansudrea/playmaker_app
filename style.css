@@ -115,25 +115,46 @@ transition: 0.4s all;
 {
 background-color:lightgray !important;
 }
-.playback_button
+.control_button
 {
 position:relative;
 float:left;
-width:150px;
-height:30px;
 font-size:12px;
 text-transform:uppercase;
 line-height:30px;
+height:30px;
 border-radius:15px;
-/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a7c7dc+0,6ba872+100 */
-background: #a7c7dc; /* Old browsers */
-background: -moz-radial-gradient(center, ellipse cover, #a7c7dc 0%, #6ba872 100%); /* FF3.6-15 */
-background: -webkit-radial-gradient(center, ellipse cover, #a7c7dc 0%,#6ba872 100%); /* Chrome10-25,Safari5.1-6 */
-background: radial-gradient(ellipse at center, #a7c7dc 0%,#6ba872 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7c7dc', endColorstr='#6ba872',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 margin-left:5px;
 text-align:center;
+width:150px;
+}
+.playback_arrow_container
+{
 border-color: transparent black;
+}
+.up_arrow_container
+{
+width:45px;
+border-color:transparent transparent black transparent;
+border-radius:0 15px 15px 0 ;
+margin-left:0px ;
+}
+.up_arrow_container:hover
+{
+border-color:transparent transparent lime transparent;
+cursor:pointer;
+}
+.down_arrow_container
+{
+width:45px;
+border-color:black transparent transparent transparent;
+border-radius:0 15px 15px 0 ;
+margin-left:0px ;
+}
+.down_arrow_container:hover
+{
+border-color:lime transparent transparent transparent;
+cursor:pointer;
 }
 .highlighted
 {
@@ -157,9 +178,15 @@ float:left;
 width:100%;
 height:100%;
 background-color:white;
-opacity:0.9;
+opacity:0.6;
 position:absolute;
 z-index:1;
+left:0;
+top:0;
+}
+.controls_overlay
+{
+opacity:0.6;
 }
 .new_play_container
 {
@@ -252,6 +279,7 @@ line-height:20px;
 .selected
 {
 color:white !important;
+transition: all 0.3s linear !important;
 }
 .center_circle
 {
@@ -320,7 +348,33 @@ border-width: 6px 0px 6px 12px;
 height: 0px;
 width: 0px;
 }
-.playback_button:hover
+.stop_square 
+{
+margin:9px 0 0 31px;
+border-color: inherit;
+border-style: solid;
+border-width: 6px;
+height: 0px;
+width: 0px;
+}
+.stop_square_container
+{
+border-color:black;
+} 
+.stop_square_container:hover
+{
+border-color:red;
+}
+.up_arrow 
+{
+margin:9px 0 0 14px;
+border-color: inherit;
+border-style: solid;
+border-width: 0px 6px 12px 6px;
+height: 0px;
+width: 0px;
+}
+.playback_arrow_container:hover
 {
 cursor:pointer;
 border-color: transparent lime !important;
@@ -330,4 +384,19 @@ color:lime;
 {
 cursor:pointer;
 color:blue;
+}
+.gradient1
+{
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a7c7dc+0,6ba872+100 */
+background: #a7c7dc; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover, #a7c7dc 0%, #6ba872 100%); /* FF3.6-15 */
+background: -webkit-radial-gradient(center, ellipse cover, #a7c7dc 0%,#6ba872 100%); /* Chrome10-25,Safari5.1-6 */
+background: radial-gradient(ellipse at center, #a7c7dc 0%,#6ba872 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7c7dc', endColorstr='#6ba872',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+.limePointerHover:hover
+{
+color:lime;
+cursor:pointer;
 }

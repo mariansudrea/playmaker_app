@@ -1,10 +1,52 @@
 app.factory('playerService', function(){
-	var serviceObj = {}
+	var serviceObj = {
+		speeds:  				[ 3,2.5,2,1.6,1.3,1,0.8,0.6 ],
+		speeds_index:			5, 
+		transition_type: 		"cubic",
+			
+	}
+	serviceObj.updateAnimationStyle = function(players,env){
+		var t_type = ( serviceObj.transition_type=="linear"?"linear" : "cubic-bezier(.5,0,.5,1)" )
+		serviceObj.transition_style_string="top " + serviceObj.speeds[serviceObj.speeds_index] +"s "+ 
+			t_type +
+			",left " + serviceObj.speeds[serviceObj.speeds_index] + "s " + 
+			t_type +
+			",box-shadow " + serviceObj.speeds[serviceObj.speeds_index] + "s " + 
+			t_type +
+			",background-color " + "0.5s " +t_type ;
+
+        for ( var i = 0 ; i < players.length ; i++ ){
+        	players[i].transitionTo(env.current_frame_index);
+        }
+		
+	}
+
+	
+	serviceObj.toggleTransitionType = function(players,env){
+		console.log('toggling transition type..');
+		serviceObj.transition_type = ( serviceObj.transition_type == "linear" ? "cubic" : "linear" );
+		serviceObj.updateAnimationStyle(players,env);
+	}
+	serviceObj.changeSpeed = function(players,env,direction){
+		if ( direction == "up" ) {
+			if ( serviceObj.speeds_index < serviceObj.speeds.length-1 ) 
+				{ serviceObj.speeds_index++ }
+		} else {
+			if ( serviceObj.speeds_index > 0 ) 
+				{ serviceObj.speeds_index-- }
+		}
+		serviceObj.updateAnimationStyle(players,env);
+	}
+//	serviceObj.transition_style_string = "top 4.5s linear,left 4.5s linear,box-shadow 0.5s cubic-bezier(.5,0,.5,1), background-color 0.5s cubic-bezier(.5,0,.5,1)";
+//	serviceObj.transition_type = "all 5s linear";
+//	serviceObj.transition_type = "border-radius:0";
 	var GeneratedStyle = function(posX,posY,color,highlighted){
 		this.top = ( posY * 40 ) + "px";
 		this.left = ( posX * 40 ) + "px";
 		this['background-color'] = color;
-		this['box-shadow'] = ( highlighted ? "0px 0px 20px 6px " + color : "none" );
+//		this['box-shadow'] = ( highlighted ? "0px 0px 20px 6px " + color : "none" );
+		this['box-shadow'] = ( highlighted ? "0px 0px 30px 15px " + color : "none" );
+		this['transition'] = serviceObj.transition_style_string;
 	}	
 	serviceObj.GeneratedStyle = GeneratedStyle;
 	var transition = function(index){
@@ -60,6 +102,7 @@ app.factory('playerService', function(){
 		for ( i in env.ball_style ){
 			ball_style[i] = env.ball_style[i];
 		}
+		serviceObj.updateAnimationStyle(players,env);
 		frameService.goToFrame(0,this,players,env);
 	}
 	serviceObj.decompressPlayer = function(player,jersey,colors,env){
@@ -131,6 +174,7 @@ app.factory('playerService', function(){
 		players_array.length = 0;
 		env.selected_player = null;
 		env.frames.length = 0;
+		env.current_frame_index = 0;
 		var a = env.team1_temp_color.toLowerCase();
 		var b = env.team2_temp_color.toLowerCase();
 		if ( css_colors.indexOf(a) != -1 ) {
