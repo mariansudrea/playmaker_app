@@ -6,10 +6,9 @@ app.config([
 function($stateProvider, $urlRouterProvider) {
 
       $stateProvider
-      .state('test', {
+      	.state('test', {
           	url: '/test',
 			templateUrl: '/js/test/_test.html',
-//			template: 'hello',
 			controller: 'testController'
 		});
 		$urlRouterProvider.otherwise('test');

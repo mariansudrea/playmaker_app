@@ -23,6 +23,7 @@ app.controller('testController', ['playerService','envService','frameService','c
 		$scope.players = [];	
 		$scope.player.decompressPlay($scope.env,$scope.css_colors,$scope.players,$scope.frameService);
 	}
+	$scope.player.updateAnimationStyle($scope.players,$scope.env)
 
 }])
 

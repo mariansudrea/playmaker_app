@@ -1,4 +1,4 @@
-app.factory('playerService', function(){
+app.factory('playerService', ['envService',function(env){
 	var serviceObj = {
 		speeds:  				[ 3,2.5,2,1.6,1.3,1,0.8,0.6 ],
 		speeds_index:			5, 
@@ -40,17 +40,22 @@ app.factory('playerService', function(){
 //	serviceObj.transition_style_string = "top 4.5s linear,left 4.5s linear,box-shadow 0.5s cubic-bezier(.5,0,.5,1), background-color 0.5s cubic-bezier(.5,0,.5,1)";
 //	serviceObj.transition_type = "all 5s linear";
 //	serviceObj.transition_type = "border-radius:0";
-	var GeneratedStyle = function(posX,posY,color,highlighted){
+	var GeneratedStyle = function(posX,posY,color,highlighted,ball){
 		this.top = ( posY * 40 ) + "px";
 		this.left = ( posX * 40 ) + "px";
 		this['background-color'] = color;
 //		this['box-shadow'] = ( highlighted ? "0px 0px 20px 6px " + color : "none" );
 		this['box-shadow'] = ( highlighted ? "0px 0px 30px 15px " + color : "none" );
 		this['transition'] = serviceObj.transition_style_string;
+		if ( typeof ball != "undefined"){
+			this['background-image'] = "url('./images/" + ball + ".png')"
+		}
 	}	
 	serviceObj.GeneratedStyle = GeneratedStyle;
 	var transition = function(index){
-		this.current_style = new GeneratedStyle(this.frames[index].posX,this.frames[index].posY,this.default_color,this.frames[index].highlighted)
+		if ( this.jersey_number == "ball" ) { var ball_type = env.current_sport }
+		else var ball_type = undefined; 
+		this.current_style = new GeneratedStyle(this.frames[index].posX,this.frames[index].posY,this.default_color,this.frames[index].highlighted,ball_type)
 	}
 	var Player = function(color,jersey,new_current_style,new_current_frames){
 		this.default_color=color;
@@ -200,6 +205,8 @@ app.factory('playerService', function(){
 			this.add( env,env.team2_temp_color, env.default_positions2[i], i+env.team1_preview.length,players_array )
 		}
 		this.add( env,"aqua", [9,5], "ball", players_array )
+		
+		
 		env.mode = "create";
 	}
 
@@ -214,8 +221,13 @@ app.factory('playerService', function(){
 			});
 		}
 		var new_current_style = new GeneratedStyle(default_position[0],default_position[1],color,false)
+		if ( jersey == "ball" ) {
+			new_current_style['background-color']="none";
+			new_current_style['background-image'] = "url('./images/" + env.current_sport+ ".png')";
+			console.log('new_current_style.background: ' + new_current_style.background);
+		}
 		players_array.push(new Player(color,jersey,new_current_style,new_current_frames));
 	}
 
 	return serviceObj
-})
+}])

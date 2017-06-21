@@ -6,14 +6,23 @@ app.factory('envService',['$timeout','$location', function($timeout,$location){
 	}
 	var ball_style = {
 		'background-color': "aquamarine",
-		'background': "url('./images/ball.png')",
+		'background': "url('/images/ball.png')",
 		'background-position': "-4px -4px",
 		'background-size': "47px 47px",
 	}
+	var field_styles = {
+		'arenasoccer': {'background-color': "rgba(44, 140, 25, 0.5)",
+						'border-radius':	"130px"},
+		'basketball': {	'background-color': "rgb(237, 218, 125)",
+						'border-radius':	"0px"},
+	};
 	var env = {
 		ball_style:				ball_style,	
 		conversion_array: 	[ "0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t" ],	
 		current_frame_index:	0,
+		current_sport:			"arenasoccer",
+		field_style:			field_styles['arenasoccer'],
+		field_styles:			field_styles,
 		frames:					[0],
 		frame_styles: 			frame_styles,
 		frames_input:		 	1,
@@ -57,18 +66,20 @@ app.factory('envService',['$timeout','$location', function($timeout,$location){
 	}
 	env.updateSelectedPlayer = function(player){
 		var frm = this.selected_player.frames[this.current_frame_index];
-		env.selected_player.current_style = new player.GeneratedStyle(frm.posX,frm.posY,this.selected_player.default_color,frm.highlighted);
+		console.log('updated player jersey: ' + env.selected_player.jersey_number);
+		if ( env.selected_player.jersey_number == "ball" ){
+			var ball_type = env.current_sport;
+		} else var ball_type = undefined;
+		env.selected_player.current_style = new player.GeneratedStyle(frm.posX,frm.posY,this.selected_player.default_color,frm.highlighted,ball_type);
 		if ( this.mode == "create" ) { this.flashFrames() } // create mode animation	
 	}
 	env.flashFrames = function(){
 		for ( var i = this.current_frame_index ; i < this.frames.length ; i++){
 			(function(j){
 				$timeout(function(){
-					console.log(j);
 					env.frame_styles[j] = { 'background-color':'lightgray' };	
 				},30*(j-env.current_frame_index));	
 				$timeout(function(){
-					console.log(j);
 					env.frame_styles[j] = { 'background-color':'none' };	
 				},180+30*(j-env.current_frame_index));	
 			})(i)
@@ -138,6 +149,11 @@ app.factory('envService',['$timeout','$location', function($timeout,$location){
 		$location.search('play',env.play_data_model);		
 	}
 
+	env.changeSport = function(sport){
+		console.log('changing sport to ' + sport);
+		env.current_sport = sport;
+		env.field_style = env.field_styles[sport];
+	}
 
 	for (var i = 0; i < env.grid_size_length ; i++ ){
 		env.grid_size[i] = { posX: i % 20,
