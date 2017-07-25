@@ -11,9 +11,10 @@ app.factory('frameService',['$timeout', function($timeout){
 			}
 		}
 		env.current_frame_index = destination_frame_index;
-		player.compressPlay(env,players);
+//		player.compressPlay(env,players);
 	}
 	serviceInstance.playback = function(env,player,players){
+	  if ( env.frames.length > 1 ){
 		env.playing = true;
 		env.selected_player = null;
 		var goToNext = function(){
@@ -28,10 +29,10 @@ app.factory('frameService',['$timeout', function($timeout){
 		} else {
 			goToNext()
 		}
-
+	  }
 	}
 	serviceInstance.stopPlayback = function(env){
-		console.log('stopping playback function----');
+//		console.log('stopping playback function----');
 		$timeout.cancel(env.playback_timeout);
 		env.playing = false;
 	}
@@ -39,7 +40,7 @@ app.factory('frameService',['$timeout', function($timeout){
 		if ( env.frames.length > 1 ){
 			env.frames.pop();
 			for (var i = 0 ; i < players.length; i++){
-				console.log('removing frame iteration...');
+//				console.log('removing frame iteration...');
 				players[i].frames.pop();
 			}
 		}
@@ -49,7 +50,7 @@ app.factory('frameService',['$timeout', function($timeout){
 		if ( env.frames.length < 10 ) {
 			env.frames.push(env.frames.length);
 			for ( var i = 0; i < players.length; i++) {
-				console.log('add frame iteration...');
+//				console.log('add frame iteration...');
 				players[i].frames.push(JSON.parse(JSON.stringify(players[i].frames[players[i].frames.length-1])));
 			}
 		}

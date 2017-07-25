@@ -11,17 +11,23 @@ app.controller('testController', ['playerService','envService','frameService','c
 // 		Init Functions
 
 	$scope.$on('$locationChangeSuccess', function(){
-		console.log('URL CHANGE DETECTED');
+//		console.log('URL CHANGE DETECTED');
 		$scope.env.input_play = $location.search().play;
 		$scope.players = [];
 		$scope.player.decompressPlay($scope.env,$scope.css_colors,$scope.players,$scope.frameService);
+		$scope.env.changeSport($location.search().s || "arenasoccer",$scope.players);
+		$scope.env.current_frame_index = 0;
 	});
-
-	if ( $location.search().play != undefined ) {
-		console.log('play string received: ' + $location.search().play);
+	var input_play_validation = /^[0-9]{6}_[a-zA-Z0-9_]+$/
+	if ( input_play_validation.test($location.search().play) == false ) {
+		console.log("Input play don't look right..")
+	}
+	if ( typeof $location.search().play != undefined && input_play_validation.test($location.search().play)) {
+		console.log('location.search.play: ' + $location.search().play);
 		$scope.env.input_play = $location.search().play;
 		$scope.players = [];	
 		$scope.player.decompressPlay($scope.env,$scope.css_colors,$scope.players,$scope.frameService);
+		$scope.env.changeSport(($location.search().s || "arenasoccer"),$scope.players );
 	}
 	$scope.player.updateAnimationStyle($scope.players,$scope.env)
 

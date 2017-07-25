@@ -2,7 +2,7 @@
 <html>
 <head>
 <!--meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=yes" /-->
-	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=1" />
+	<meta name="viewport" content="initial-scale=1,minimum-scale=0.2,maximum-scale=1.1,user-scalable=1" />
 	<script src="./bower_components/angular/angular.js"></script></script>
 	<script src="./bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 	<script src="./bower_components/jquery/dist/jquery.js"></script>
@@ -13,22 +13,26 @@
 	<script src="js/test/envService.js"></script>	
 	<script src="js/test/playerService.js"></script>	
 	<link rel="stylesheet" href="style.css"/>
+	<link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
+	<title>Alternate Play -- Sport Play Animation App</title>
+	<meta name="description" content="Alternate Play - Soccer Basketball Play Animation App"/>
+	
+
 
 </head>
 <body ng-app="soccer_playmaker">
 
 	<div class="header">
 		<div class="logo">
-			Alternate Play
+<!--			Alternate Play-->
 		</div>
 		<div class="links">
-			<div class="link">
+			<div class="link bold_pointer_hover" ng-click="anchorScroll('about')">
 				About
 			</div>
 		</div>
 	</div>
 	<!--h2>starting soccer_play app</h2-->
 	<ui-view></ui-view>
-
 </body>
 </html>

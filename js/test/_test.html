@@ -3,23 +3,48 @@
 		<div class="playback_arrow">
 		</div>
 	</div>
+	<div class="not_allowed control_button" style="width:70px;background-color:white;opacity:0.6;margin-left:-70px;z-index:3" ng-show="env.frames.length<2" title="Add some frames to animate">
+	</div>
 	<div ng-show="env.playing" class="control_button stop_square_container gradient1" style="width:70px" ng-click="frameService.stopPlayback(env)">
 		<div class="stop_square">
 		</div>
 	</div>
+	<div class="control_button gradient1 limePointerHover" style="width:50px;overflow:visible;" ng-click="env.toggleLoadMenu()">
+		Load
+	</div>
+		<div class="load_menu gradient1" ng-click="console.log('clicked')" ng-class="{load_menu_open: env.load_menu_visible}">
+			<div class="load_menu_title gradient1">	
+				Sample Plays
+			</div>
+			
+			<div ng-repeat="i in env.sample_plays track by $index" class="load_option limePointerHover" ng-click="env.load(env.sample_plays[$index])">
+				{{ i[2] }}
+			</div>
+			<!--div class="load_option limePointerHover">
+				OPTION 1
+			</div>
+			<div class="load_option limePointerHover">
+				OPTION 1
+			</div-->
+		</div>
 	<div class="control_button gradient1 limePointerHover" style="width:100px" ng-click="env.save(player,players)">
 		Save to URL
 	</div>
-	<div ng-hide="env.playing" style="width:80px" class="control_button gradient1 limePointerHover" ng-click="env.modal_visible=true;env.updatePreviewTeams()">
+	<div style="width:50px" class="control_button gradient1 limePointerHover" ng-click="env.toggle3d(players)">
+		3D 	
+	</div>
+	<div ng-hide="env.playing" style="width:50px" class="control_button gradient1 limePointerHover" ng-click="env.modal_visible=true;env.updatePreviewTeams()">
 		New 	
 	</div>
-	<div style="width:80px" class="control_button gradient1" ng-show="env.playing">
+	<div style="width:50px" class="control_button gradient1" ng-show="env.playing">
 		New 	
 		<div class="overlay controls_overlay" ng-show="env.playing">
 		</div>
 	</div>
-	<div style="width:80px" class="control_button gradient1 limePointerHover" ng-click="env.toggleMode()">
+	<div style="width:60px" class="control_button gradient1 limePointerHover" ng-click="env.toggleMode()">
 			{{ env.mode }} 
+	</div>
+	<div class="not_allowed control_button" style="width:60px;background-color:white;opacity:0.6;margin-left:-60px;z-index:3" ng-show="env.frames.length<2" title="Add some frames to animate">
 	</div>
 	<div style="margin-left:5px;width:45px;border-radius:15px 0 0 15px !important" class="control_button gradient1 down_arrow_container" ng-click="player.changeSpeed(players,env,'down')">
 		<div class="up_arrow" style="border-width:12px 6px 0 6px"></div>
@@ -30,90 +55,188 @@
 	<div class="control_button gradient1 up_arrow_container" ng-click="player.changeSpeed(players,env,'up')">
 		<div class="up_arrow"></div>
 	</div>
-	<div class="control_button gradient1 limePointerHover" style="width:100px" ng-click="player.toggleTransitionType(players,env)">
+	<div class="not_allowed control_button" style="width:150px;background-color:white;opacity:0.6;margin-left:-150px;z-index:3" ng-show="env.frames.length<2" title="Add some frames to animate">
+	</div>
+	<div class="control_button gradient1 limePointerHover" style="width:65px" ng-click="player.toggleTransitionType(players,env)">
 		{{ player.transition_type }}
+	</div>
+	<div class="not_allowed control_button" style="width:65px;background-color:white;opacity:0.6;margin-left:-65px;z-index:3" ng-show="env.frames.length<2" title="Add some frames to animate">
 	</div>
 	<div ng-show="env.selected_player!=null" style="width:170px" class="control_button gradient1 limePointerHover" ng-click="env.toggleHighlighted(player)">
 		 {{ env.selected_player.jersey_number }} // 
 			{{ env.selected_player.frames[env.current_frame_index].highlighted ? "highlighted" : "not highlighted" }}
 	</div>
-	<div class="field" ng-style="env.field_style">
-		<div ng-show="env.current_sport=='arenasoccer'">
-		    <div class="center_circle">
-		    </div>
-			<div class="halfway_line">
+	<div class="outer_wrapper">
+		<div class="field_wrapper" ng-style="env.field_styles_3d[env.current_3d_index]">
+			<div class="field" ng-style="env.field_style">
+				<div ng-show="env.current_sport=='arenasoccer'">
+				    <div class="center_circle">
+				    </div>
+					<div class="halfway_line">
+					</div>
+					 <div class="left_box">
+					</div>
+					 <div class="right_box">
+					</div>
+					 <div class="yellow_line_left">
+					</div>
+					 <div class="yellow_line_right">
+					</div>
+				</div>
+				<div ng-show="env.current_sport=='icehockey'">
+				    <div class="h_circle h_center">
+				    </div>
+				    <div class="h_circle h_left_top">
+				    </div>
+				    <div class="h_circle h_left_bottom">
+				    </div>
+				    <div class="h_circle h_right_top">
+				    </div>
+				    <div class="h_circle h_right_bottom">
+				    </div>
+		
+		
+					<div class="h_faceoff h_dot1">
+					</div>
+					<div class="h_faceoff h_dot2">
+					</div>
+					<div class="h_faceoff h_dot3">
+					</div>
+					<div class="h_faceoff h_dot4">
+					</div>
+					<div class="h_faceoff h_dot5">
+					</div>
+					<div class="h_faceoff h_dot6">
+					</div>
+					<div class="h_faceoff h_dot7">
+					</div>
+					<div class="h_faceoff h_dot8">
+					</div>
+		
+					<div class="h_left_goal">
+					</div>
+					<div class="h_right_goal">
+					</div>
+		
+					<div class="h_halfway_line">
+					</div>
+					<div class="h_left_blue_line">
+					</div>
+					<div class="h_left_goal_line">
+					</div>
+					<div class="h_right_blue_line">
+					</div>
+					<div class="h_right_goal_line">
+					</div>
+				</div>
+				<div ng-show="env.current_sport=='associationfootball'">
+				    <div class="af_center_circle">
+				    </div>
+					<div class="halfway_line af">
+					</div>
+					<div class="af_left_goal_area">
+					</div>
+					<div class="af_left_penalty_area">
+					</div>
+					<div class="af_left_penalty_arc">
+					</div>
+					<div class="af_right_goal_area">
+					</div>
+					<div class="af_right_penalty_area">
+					</div>
+					<div class="af_right_penalty_arc">
+					</div>
+				</div>
+				<div ng-show="env.current_sport=='basketball'">
+					<div class="halfway_line">
+					</div>
+				    <div class="bb_center_circle">
+				    </div>
+		
+		
+					<div class="bb_3point_left_arc">
+					</div>
+					<div class="bb_key1_left">
+					</div>
+					<div class="bb_key2_left">
+					</div>
+					<div class="hoop_left">
+						<div ng-repeat="i in env.hoop_net_divs track by $index" class="hoop_net_div">
+						</div>
+						<div class="hoop_mid">
+						</div>
+					</div>
+					<div class="backboard_left">
+					</div>
+					<div class="hoop_stem_left">
+					</div>
+		
+		
+		
+					<div class="bb_3point_right_arc">
+					</div>
+					<div class="bb_key1_right">
+					</div>
+					<div class="bb_key2_right">
+					</div>
+					<div class="hoop_right">
+						<div ng-repeat="i in env.hoop_net_divs track by $index" class="hoop_net_div">
+						</div>
+						<div class="hoop_mid">
+						</div>
+					</div>
+					<div class="backboard_right">
+					</div>
+					<div class="hoop_stem_right">
+					</div>
+				</div><!-- END BASKETBALL FIELD MARKINGS-->
+			</div><!-- end FIELD div -->
+			<div class="spacer_up">
+				<div class="grid_square" ng-repeat="i in env.grid_size" ng-click="env.moveSelectedPlayer(i,player)">
+				</div>	
 			</div>
-			 <div class="left_box">
+			<div ng-click="env.toggleSelected(i)" ng-class="{player: true, selected: env.selected_player ==players[$index]}" ng-style="i.current_style" ng-repeat="i in players track by $index">
+				{{ i.jersey_number }}
 			</div>
-			 <div class="right_box">
-			</div>
-			 <div class="yellow_line_left">
-			</div>
-			 <div class="yellow_line_right">
-			</div>
-			<div class="grid_square" ng-repeat="i in env.grid_size" ng-click="env.moveSelectedPlayer(i,player)">
-			</div>	
-		</div>
-		<div ng-show="env.current_sport=='basketball'">
-			<div class="halfway_line">
-			</div>
-		    <div class="bb_center_circle">
-		    </div>
-			<div class="bb_3point_left_arc">
-			</div>
-			<div class="bb_key1_left">
-			</div>
-			<div class="bb_key2_left">
-			</div>
-			<div class="grid_square" ng-repeat="i in env.grid_size" ng-click="env.moveSelectedPlayer(i,player)">
-			</div>	
-		</div>
-		<div 
-		<div ng-click="env.toggleSelected(i)" ng-class="{player: true, selected: env.selected_player ==players[$index]}" ng-style="i.current_style" ng-repeat="i in players track by $index">
-			{{ i.jersey_number }}
-		<!--div class="player" ng-repeat="i in players" ng-class="player1.position"-->
-		</div>
-	</div>
+		</div> <!-- End Wrapper Div -->
+	</div> <!-- End Outer Wrapper Div -->
 	<div class="frame_selector_area">
-		<div ng-style="env.frame_styles[$index]" ng-class="{frame_selector_button: true,frame_selected: env.current_frame_index == $index }" ng-click="frameService.goToFrame(i,player,players,env)" ng-repeat="i in env.frames track by $index">
+		<div ng-style="env.frame_styles[$index]" ng-class="{frame_selector_button: true,frame_selected: env.current_frame_index == $index }" ng-click="env.selected_player=null;frameService.goToFrame(i,player,players,env)" ng-repeat="i in env.frames track by $index">
 			{{ i+1 }}		
 		</div>
-		<div class="frame_selector_button" ng-click="frameService.addFrame(env,players)">
+		<div class="frame_selector_button" ng-click="frameService.addFrame(env,players)" title="Add Frame">
 			+
 		</div>
-		<div class="frame_selector_button" ng-click="frameService.removeFrame(env,players,player)">
+		<div class="frame_selector_button" ng-click="frameService.removeFrame(env,players,player)" title="Remove Last Frame">
 			-	
 		</div>
 		<div class="overlay controls_overlay" ng-show="env.playing">
 		</div>
 	</div>
-	<div class="debug">
-		SPORT CONTROLS:
-		<div ng-click="env.changeSport('arenasoccer')" class="cursor_pointer">
-			SOCCER
+	<div class="sport_controls">
+		<div ng-click="env.changeSport('arenasoccer',players)" class="sport_selection_button cursor_pointer gradient1">
+			Indoor Soccer
 		</div>
-		<div ng-click="env.changeSport('basketball')" class="cursor_pointer">
-			BASKETBALL
+		<div ng-click="env.changeSport('basketball',players)" class="sport_selection_button cursor_pointer gradient1">
+			Basketball
 		</div>
-	</div>
-	<div class="debug">
-		<textarea class="play_input" ng-model="env.input_play"></textarea>
-		</hr>
-		<div ng-click="players=[];player.decompressPlay(env,css_colors,players,frameService)">
-			DECOMPRESS	
+		<div ng-click="env.changeSport('associationfootball',players)" class="sport_selection_button cursor_pointer gradient1">
+			Soccer / Football
 		</div>
-		</hr>
-		{{ env.play_data_model }}	
+		<div ng-click="env.changeSport('icehockey',players)" class="sport_selection_button cursor_pointer gradient1">
+			Ice Hockey
+		</div>
 	</div>
 	
 	
-	<div class="new_play_container" ng-show="env.modal_visible">
+	<div class="new_play_container gradient1" ng-class="{new_play_container_open: env.modal_visible}" >
+	  <div ng-show="env.modal_visible">
 		<div class="input_label">
-			Team 1 players: (1-7)
+			Team 1 players: (1-11)
 		</div>
 		<input type="number" ng-change="env.updatePreviewTeams()" class="new_play_input" ng-model="env.team1_input"> </input>
 		<div class="input_label">
-			Team 2 players: (1-7)
+			Team 2 players: (1-11)
 		</div>
 	
 		 <input type="number" ng-change="env.updatePreviewTeams()" ng-model="env.team2_input" class="new_play_input"></input>
@@ -138,14 +261,98 @@
 			</div>
 		</div>
 <!--			<div class="new_play_submit" ng-click="newPlay()">	-->
-		<div class="new_play_submit" ng-click="player.newPlay(env,css_colors,players)">
-			GENERATE NEW PLAY
+		<div class="gradient1 small_shadow limePointerHover new_play_submit" ng-click="player.newPlay(env,css_colors,players)">
+			Generate
 		</div>
+	  </div> <!--wrapper for no show content-->
 	</div>
-	<div ng-show="env.modal_visible" ng-click="env.modal_visible=false" class="overlay">
+	<div ng-show="env.modal_visible||env.load_menu_visible" ng-click="env.modal_visible=false;env.load_menu_visible=false" style="height:576px" class="overlay">
 	</div>
 
 
 
 <!-- view end -->
+<!-- OTHER NON-PLAY RELATED INFO -->
+
+	<div style="position:relative;float:left" id="about">
+		<h2>
+			Alternate Play
+		</h2>
+		<hr>
+		<p>
+			
+			The Alternate Play simulator allows you to convey your drill and gameplan ideas without X's,  O's and confusing lines.
+		<ul>
+			<li>
+			 	Design your play then animate it. 
+			</li>
+			<li>
+			 	Share with your team through email link. Your plays are never stored, giving you complete privacy. 
+			</li>
+			<li>
+				Switch to 3D perspective to better visualize movement and positioning patterns.
+			</li>
+		</ul>
+		</p>
+		<h2>
+			Controls / How to Use
+		</h2>
+		<hr>
+		<h4>
+			Frames
+		</h4>
+		<p>
+			Each play consists of a set of player positions. These frames or snapshots are equally spaced in time during animation. Start at frame 1, set initial positions, then add more frames to design your play. 
+		</p>
+		<h4>
+			Edit / Create Mode
+		</h4>
+		<p>
+			Edit mode allows allows you to edit a player position / highlighting at the current frame only. This mode is useful when modifying an existing play and you're making minor adjustments.
+		</p>
+		<p>
+			In Create mode, every change at the current frame will modify all subsequent frames. This is the default mode when creating a new play. 
+		</p>
+		<h4>
+			Animation 
+		</h4>
+		<p>
+			Animations can be done with players moving at the same speed in robotic fashion, or you can choose natural movement in which objects accelerate from the origin, then slow down when approaching their destination. 
+		</p>
+		<h4>
+			Saving your play
+		</h4>
+		<p>
+			We don't record any plays on our servers, and there are no log-ins or usernames, so you are responsible for storage of your plays. The long ugly string at the top of your browser, created when you press "SAVE TO URL" is your encoded play. You can save this in a text file, email, or any kind of online storage service ( Dropbox, Google Drive, etc. ). 
+		</p>
+		<h2>
+			System Requirements
+		</h2>
+		<hr>
+		<p>
+			This app uses browser features that are not available if you are running Internet Explorer 9 or an earlier version. Similarly, outdated versions of Chrome, Safari, Firefox, etc. might prevent the app from displaying properly. A quick automatic update of your browser should fix any compatibility issues. 
+		</p>
+		<h2>
+			Support this Project !
+		</h2>
+		<hr>
+		<p style="height:30px;line-height:30px">
+			If you find this app useful, please follow our Facebook page.<a href="https://www.facebook.com/alternateplay/" target="_blank"><img style="width:20px;height:20px;vertical-align:-11%" src="./images/fb.png"/></a>
+		</p>
+	</div>
 </div>
+
+<!--
+<!--
+
+
+
+<!--div class="debug">
+		<textarea class="play_input" ng-model="env.input_play"></textarea>
+		</hr>
+		<div ng-click="players=[];player.decompressPlay(env,css_colors,players,frameService)">
+			DECOMPRESS	
+		</div>
+		</hr>
+		{{ env.play_data_model }}	
+	</div-->

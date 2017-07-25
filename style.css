@@ -4,39 +4,50 @@ height:auto;
 position:relative;
 text-align:center;
 width:100%;
+min-width:900px;
 overflow:auto;
-font-family: sans-serif;
+/*font-family: sans-serif;*/
+font-family: 'Droid Sans', sans-serif;
 }
 .view_container
 {
+user-select:none;
 margin: 15px auto 0;
-width:800px;
+width:812px;
 height:auto;
 position:relative;
 background-color:transparent;
-overflow:hidden;
+overflow:visible;
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: scale(1);
+
 }
 .field
 {
+box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.75);
+overflow:hidden;
+background-color:pink;
 position:relative;
+user-select:none;
 float:left;
-width:800px;
+width:812px;
 margin:auto;
-margin-top:10px;
+margin-top:0px;
 /*background-color:rgba(44, 140, 25, 0.5);*/
-height:400px;
+height:476px;
 /*border-radius:130px;*/
 }
 .grid_square
 {
-width:40px;
-height:40px;
+width:28px;
+height:28px;
 /*border:1px solid #38cc24*/;
 border:none;
 position:relative;
 float:left;
 /*box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.75);*/
 }
+
 .grid_square:hover
 {
 /*box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.75);*/
@@ -48,14 +59,15 @@ cursor:pointer;
 }
 .player
 {
+/*transform: perspective( 600px ) rotateX(65deg) rotateZ(90deg);*/
 position:absolute;
-width:38px;
-height:38px;
-line-height:38px;
+width:26px;
+height:26px;
+line-height:26px;
 font-weight: bold;
 font-family:sans-serif;
 text-align:center;
-border-radius:20px;
+border-radius:14px;
 border:1px solid transparent;
 text-shadow: 0px 0px 5px rgba(172, 255, 117, 1);
 /*background-color:gray;*/
@@ -64,18 +76,21 @@ text-shadow: 0px 0px 5px rgba(172, 255, 117, 1);
 transition:		1.5s top linear,
 				1.5s left linear,
 				0.5s box-shadow cubic-bezier(.5,0,.5,1),
-				0.5s background-color cubic-bezier(.5,0,.5,1);
+				0.5s background-color cubic-bezier(.5,0,.5,1),
+				0.7s transform linear;
 -webkit-transform: translate3d(0, 0, 0);
-transform: translate3d(0, 0, 0);
+transform: perspective(400px) translate3d(0, 40px, 0);
 -webkit-backface-visibility: hidden;
 backface-visibility: hidden;
+
+
 }
 .player:last-of-type
 {
 /*background-color:transparent !important;*/
 /*background:url('./images/ball.png') ;*/
 background-position: -2px -2px;
-background-size: 43px 43px;
+background-size: 30px 30px;
 font-size:0;
 
 }
@@ -85,7 +100,7 @@ background-color:white !important;
 }
 .frame_selector_area
 {
-width:800px;
+width:812px;
 margin: 5px 0 5px;
 height:40px;
 border-bottom:1px solid black;
@@ -118,6 +133,7 @@ background-color:lightgray !important;
 .control_button
 {
 position:relative;
+user-select:none;
 float:left;
 font-size:12px;
 text-transform:uppercase;
@@ -127,6 +143,7 @@ border-radius:15px;
 margin-left:5px;
 text-align:center;
 width:150px;
+transition:all 0.2s;
 }
 .playback_arrow_container
 {
@@ -141,7 +158,7 @@ margin-left:0px ;
 }
 .up_arrow_container:hover
 {
-border-color:transparent transparent lime transparent;
+border-color:transparent transparent red transparent;
 cursor:pointer;
 }
 .down_arrow_container
@@ -153,7 +170,7 @@ margin-left:0px ;
 }
 .down_arrow_container:hover
 {
-border-color:lime transparent transparent transparent;
+border-color:aqua transparent transparent transparent;
 cursor:pointer;
 }
 .highlighted
@@ -178,7 +195,7 @@ float:left;
 width:100%;
 height:100%;
 background-color:white;
-opacity:0.6;
+opacity:0.2;
 position:absolute;
 z-index:1;
 left:0;
@@ -190,19 +207,25 @@ opacity:0.6;
 }
 .new_play_container
 {
-top:100px;
-background-color:#EEEEEE;
+font-size:12px;
+top:70px;
+left:406px;
+border-radius:20px;
 height:400px;
 position:absolute;
-min-width:200px;
-margin-left:15%;
-width:70%;
+width:0px;
 opacity:1;
-float:center;
 z-index:2;
--webkit-box-shadow: 0px 0px 51px 14px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 51px 14px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 51px 14px rgba(0,0,0,0.75);
+transition: 0.2s left, 0.2s width ;
+box-shadow: none;
+overflow:hidden;
+}
+.new_play_container_open
+{
+left:131px;
+width:550px;
+height:400px;
+box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.75);
 }
 .new_play_input
 {
@@ -222,20 +245,22 @@ text-align:center;
 clear:left;
 position:relative;
 float:left;
-width:300px;
+width:250px;
+margin-left:50px;
 height:20px;
-font-size:14px;
+font-size:12px;
 line-height:20px;
 margin-top:25px;
+text-align:left;
 }
 .team_preview
 {
-width:150px;
-height:110px;
+width:200px;
+height:90px;
 position:relative;
 float:left;
-margin-top:20px;
-margin-left:70px;
+margin-top:10px;
+margin-left:50px;
 }
 .preview_player
 {
@@ -253,11 +278,14 @@ border:1px solid black;
 position:relative;
 float:left;
 clear:left;
-width:40%;
-height:20px;
-margin: 20px 0 20px 30%;
-background-color:pink;
-border:1px solid black;
+width:25%;
+height:40px;
+line-height:40px;
+font-size:14px;
+margin: 20px 0 20px 37%;
+/*border:1px solid black;*/
+border-radius:13px;
+box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.75);
 }
 .debug
 {
@@ -280,23 +308,26 @@ line-height:20px;
 {
 color:white !important;
 transition: all 0.3s linear !important;
+-moz-transition: all 0.3s linear !important;
+-webkit-transition: all 0.3s linear !important;
+-o-transition: all 0.3s linear !important;
 }
 .center_circle
 {
 position:absolute;
-width:140px;
-height:140px;
-border-radius:70px;
+width:150px;
+height:150px;
+border-radius:75px;
 border:1px solid black;
-left:330px;
-top:130px;
+left:331px;
+top:163px;
 }
 .halfway_line
 {
 position:absolute;
-left:400px;
+left:406px;
 top:0;
-height:400px;
+height:474px;
 width:0px;
 border:1px solid black;
 }
@@ -304,38 +335,38 @@ border:1px solid black;
 {
 position:absolute;
 left:0;
-top:135px;
-height:130px;
-width:130px;
-border-radius:0 65px 65px 0 ;
+top:162px;
+height:150px;
+width:132px;
+border-radius:0 75px 75px 0 ;
 border:1px solid black;
 }
 .right_box
 {
 position:absolute;
-left:668px;
-top:135px;
-height:130px;
-width:130px;
-border-radius:65px 0 0 65px;
+left:678px;
+top:162px;
+height:150px;
+width:132px;
+border-radius:75px 0 0 75px;
 border:1px solid black;
 }
 
 .yellow_line_left
 {
 position:absolute;
-left:230px;
+left:231px;
 top:0;
-height:396px;
+height:472px;
 width:0px;
 border:2px solid #f4c242;
 }
 .yellow_line_right
 {
 position:absolute;
-left:570px;
+left:573px;
 top:0;
-height:396px;
+height:472px;
 width:0px;
 border:2px solid #f4c242;
 }
@@ -383,7 +414,7 @@ color:lime;
 .cursor_pointer:hover
 {
 cursor:pointer;
-color:blue;
+color:white;
 }
 .gradient1
 {
@@ -397,7 +428,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7c7dc', end
 }
 .limePointerHover:hover
 {
-color:lime;
+color:white;
 cursor:pointer;
 }
 .header
@@ -425,52 +456,577 @@ position:relative;
 }
 .logo
 {
-width:120px;
+width:150px;
 height:30px;
 line-height:30px;
 font-size:14px;
 position:relative;
 float:left;
+background: url('./images/logo2.png');
+background-size: 100% 100%;
+transition: all 1s;
+transform-origin:bottom;
+transform: rotateY(20deg);
+}
+.logo:hover
+{
+transform: none ;
+cursor: not-allowed;
+}
+.bb_center_circle
+{
+position:absolute;
+width:130px;
+height:130px;
+border-radius:65px;
+border:1px solid black;
+left:340px;
+top:172px;
 }
 .bb_3point_left_arc
 {
 position:absolute;
 left:0;
-top:30px;
-height:340px;
-width:240px;
-border-radius:0 170px 170px 0 ;
+top:47px;
+height:380px;
+width:243px;
+border-radius:0 190px 190px 0 ;
 border:1px solid black;
 }
 .bb_key1_left
 {
 position:absolute;
 left:0;
-top:145px;
-height:110px;
-width:240px;
-border-radius:0 55px 55px 0 ;
+top:172px;
+height:130px;
+width:243px;
+border-radius:0 65px 65px 0 ;
 border:1px solid black;
 }
-.bb_center_circle
+.bb_key2_left
+{
+position:absolute;
+left:113px;
+top:172px;
+height:130px;
+width:65px;
+border-radius:65px 0 0 65px ;
+border:1px solid black;
+border-style: dashed;
+border-right-style: solid;
+}
+.hoop_left
+{
+position:absolute;
+width:34px;
+height:34px;
+border-radius:18px;
+border:1px solid black;
+left:24px;
+top:220px;
+overflow:hidden
+}
+.backboard_left
+{
+position:absolute;
+width:0px;
+height:70px;
+border:2px solid black;
+left:10px;
+top:202px;
+}
+.hoop_stem_left
+{
+position:absolute;
+width:10px;
+height:0px;
+border:2px solid black;
+left:11px;
+top:236px;
+}
+
+
+
+
+.hoop_net_div
+{
+width:20%;
+height:20%;
+position:relative;
+float:left;
+box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.75);
+}
+.hoop_mid
+{
+position:absolute;
+height:16px;
+width:16px;
+top:9px;
+left:9px;
+/*border-radius:8px;*/
+/*background-color:rgb(237, 218, 125);*/
+background:url('/images/hardwood.jpg');
+}
+
+
+
+.bb_3point_right_arc
+{
+position:absolute;
+left:567px;
+top:47px;
+height:380px;
+width:243px;
+border-radius:190px 0 0 190px ;
+border:1px solid black;
+}
+.bb_key1_right
+{
+position:absolute;
+left:567px;
+top:172px;
+height:130px;
+width:243px;
+border-radius:65px 0 0 65px ;
+border:1px solid black;
+}
+.bb_key2_right
+{
+position:absolute;
+left:632px;
+top:172px;
+height:130px;
+width:65px;
+border-radius:0 65px 65px 0;
+border:1px solid black;
+border-style: dashed;
+border-left-style: solid;
+}
+.hoop_right
+{
+position:absolute;
+width:34px;
+height:34px;
+border-radius:18px;
+border:1px solid black;
+left:752px;
+top:220px;
+overflow:hidden
+}
+.backboard_right
+{
+position:absolute;
+width:0px;
+height:70px;
+border:2px solid black;
+left:798px;
+top:202px;
+}
+.hoop_stem_right
+{
+position:absolute;
+width:10px;
+height:0px;
+border:2px solid black;
+left:787px;
+top:236px;
+}
+
+/* outdoor soccer lines */
+.af
+{
+border-color:#cccccc !important;
+}
+.af_left_penalty_area
+{
+position:absolute;
+width:135px;
+height:240px;
+border:1px solid #cccccc;
+left:0px;
+top:118px;
+}
+.af_right_penalty_area
+{
+position:absolute;
+width:135px;
+height:240px;
+border:1px solid #cccccc;
+left:675px;
+top:118px;
+}
+.af_left_goal_area
+{
+position:absolute;
+width:45px;
+height:100px;
+border:1px solid #cccccc ;
+left:0px;
+top:188px;
+}
+.af_right_goal_area
+{
+position:absolute;
+width:45px;
+height:100px;
+border:1px solid #cccccc ;
+left:765px;
+top:188px;
+}
+.af_left_penalty_arc
+{
+position:absolute;
+width:120px;
+height:120px;
+border:1px solid #cccccc;
+left:32px;
+top:178px;
+border-radius:60px;
+border-color: transparent #cccccc transparent transparent;
+}
+.af_right_penalty_arc
+{
+position:absolute;
+width:120px;
+height:120px;
+border:1px solid #cccccc;
+left:658px;
+top:178px;
+border-radius:60px;
+border-color: transparent transparent transparent #cccccc ;
+}
+.af_center_circle
+{
+position:absolute;
+width:120px;
+height:120px;
+border-radius:60px;
+border:1px solid #cccccc;
+left:346px;
+top:178px;
+}
+
+
+/* end outdoor soccer lines*/
+/* start ice hockey lines*/
+
+.h_halfway_line
+{
+position:absolute;
+width:0px;
+height:418px;
+border:1px dashed red;
+left:405px;
+top:0px;
+}
+.h_left_blue_line
+{
+position:absolute;
+width:0px;
+height:418px;
+border:2px solid blue;
+left:305px;
+top:0px;
+}
+.h_left_goal_line
+{
+position:absolute;
+width:0px;
+height:418px;
+border:1px solid red;
+left:45px;
+top:0px;
+}
+.h_right_blue_line
+{
+position:absolute;
+width:0px;
+height:418px;
+border:2px solid blue;
+left:503px;
+top:0px;
+}
+.h_right_goal_line
+{
+position:absolute;
+width:0px;
+height:418px;
+border:1px solid red;
+left:765px;
+top:0px;
+}
+
+
+
+
+
+
+
+
+.h_circle
 {
 position:absolute;
 width:110px;
 height:110px;
 border-radius:55px;
-border:1px solid black;
-left:345px;
-top:145px;
 }
-.bb_key2_left
+.h_center
+{
+border:1px solid blue;
+left:350px;
+top:154px;
+}
+.h_left_top
+{
+border:1px solid red;
+left:70px;
+top:42px;
+}
+.h_left_bottom
+{
+border:1px solid red;
+left:70px;
+top:266px;
+}
+.h_right_top
+{
+border:1px solid red;
+left:630px;
+top:42px;
+}
+.h_right_bottom
+{
+border:1px solid red;
+left:630px;
+top:266px;
+}
+
+.h_faceoff
 {
 position:absolute;
-left:130px;
-top:145px;
-height:110px;
-width:55px;
-border-radius:55px 0 0 55px ;
-border:1px solid black;
-border-style: dashed;
-border-right-style: solid;
+width:0;
+height:0;
+border-radius:7px;
+border:7px solid red;
+}
+.h_dot1
+{
+left:119px;
+top:91px;
+}
+.h_dot2
+{
+left:119px;
+top:315px;
+}
+.h_dot3
+{
+left:315px;
+top:91px;
+}
+.h_dot4
+{
+left:315px;
+top:315px;
+}
+.h_dot5
+{
+left:483px;
+top:91px;
+}
+.h_dot6
+{
+left:483px;
+top:315px;
+}
+.h_dot7
+{
+left:679px;
+top:91px;
+}
+.h_dot8
+{
+left:679px;
+top:315px;
+}
+
+.h_left_goal
+{
+position:absolute;
+width:30px;
+height:60px;
+background-color:aqua;
+border-top-right-radius:30px;
+border-bottom-right-radius:30px;
+border:1px solid red;
+top:179px;
+left:45px;
+}
+.h_right_goal
+{
+position:absolute;
+width:30px;
+height:60px;
+background-color:aqua;
+border-top-left-radius:30px;
+border-bottom-left-radius:30px;
+border:1px solid red;
+top:179px;
+left:734px;
+}
+
+
+
+/* end ice hockey lines*/
+.footer
+{
+width:80%;
+padding: 0 10% 0;
+height:120px;
+line-height:120px;
+text-align:right;
+
+position:relative;
+float:left;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7aa084+0,8ab66b+44,65f78e+100 */
+background: #7aa084; /* Old browsers */
+background: -moz-linear-gradient(-45deg, #7aa084 0%, #8ab66b 44%, #65f78e 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg, #7aa084 0%,#8ab66b 44%,#65f78e 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg, #7aa084 0%,#8ab66b 44%,#65f78e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7aa084', endColorstr='#65f78e',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+.sport_controls
+{
+width:1000px;
+height:75px;
+position:relative;
+float:left;
+border-bottom: 1px solid black;
+}
+.sport_selection_button
+{
+text-transform:uppercase;
+font-size:12px;
+width:130px;
+height:30px;
+line-height:30px;
+margin-left:20px;
+margin-top:20px;
+border-radius:15px;
+background-color:magenta;
+position:relative;
+float:left;
+}
+.small_shadow
+{
+
+}
+.small_shadow:hover
+{
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#dddddd+0,5ded53+100 */
+background: rgb(221,221,221); /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover, rgba(221,221,221,1) 0%, rgba(93,237,83,1) 100%); /* FF3.6-15 */
+background: -webkit-radial-gradient(center, ellipse cover, rgba(221,221,221,1) 0%,rgba(93,237,83,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: radial-gradient(ellipse at center, rgba(221,221,221,1) 0%,rgba(93,237,83,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddddd', endColorstr='#5ded53',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.field_wrapper
+{
+/*transform: perspective( 450px ) rotateX(55deg) rotateZ(90deg) translateX(-200px);*/
+overflow:visible;
+background-color:transparent;
+position:relative;
+float:left;
+height:auto;
+width:auto;
+margin-top:10px;
+transition: all 0.7s;
+}
+.outer_wrapper
+{
+margin-top:10px;
+width:auto;
+height:auto;
+position:relative;
+float:left;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#feffff+0,ddf1f9+35,a0d8ef+100 */
+background: rgb(254,255,255); /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover, rgba(254,255,255,1) 0%, rgba(221,241,249,1) 35%, rgba(160,216,239,1) 100%); /* FF3.6-15 */
+background: -webkit-radial-gradient(center, ellipse cover, rgba(254,255,255,1) 0%,rgba(221,241,249,1) 35%,rgba(160,216,239,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: radial-gradient(ellipse at center, rgba(254,255,255,1) 0%,rgba(221,241,249,1) 35%,rgba(160,216,239,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#a0d8ef',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.spacer_up
+{
+/*transform: perspective( 600px ) rotateX(65deg) rotateZ(90deg);*/
+width:100%;
+position:relative;
+float:left;
+height:auto;
+margin-top:-476px;
+}
+.load_menu
+{
+position:absolute;
+width:0px;
+height:240px;
+top:45px;
+left:110px;
+overflow:hidden;
+background-color: rgba(122,122,223,1);
+border-radius:15px;
+z-index:3;
+font-size:12px;
+text-transform:uppercase;
+color:transparent !important;
+transition: 0.2s width, 0.2s left;
+}
+.load_menu_open
+{
+color:white !important;
+box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.75);
+left:30px;
+height:240px;
+width:160px;
+z-index:3;
+}
+.load_menu_title
+{
+position:relative;
+float:left;
+width:100%;
+height:20px;
+line-height:20px;
+font-weight:bold;
+border-bottom:1px solid gray;
+cursor:default;
+}
+.load_option
+{
+position:relative;
+float:left;
+width:100%;
+height:30px;
+line-height:30px;
+margin-top:5px;
+background-color:rgba(150,150,150,0.2);
+/*color:white;*/
+transition:all 0.2s;
+font-weight:600;
+}
+.load_option:hover
+{
+background-color:rgba(250,250,250,0.2);
+font-weight:800;
+}
+.bold_pointer_hover:hover
+{
+font-weight:800;
+cursor:pointer;
+}
+
+.not_allowed:hover
+{
+cursor: not-allowed;
 }

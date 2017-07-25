@@ -1,8 +1,8 @@
-app.factory('playerService', ['envService',function(env){
+app.factory('playerService', ['envService','$location',function(env,$location){
 	var serviceObj = {
 		speeds:  				[ 3,2.5,2,1.6,1.3,1,0.8,0.6 ],
-		speeds_index:			5, 
-		transition_type: 		"cubic",
+		speeds_index:			4, 
+		transition_type: 		"linear",
 			
 	}
 	serviceObj.updateAnimationStyle = function(players,env){
@@ -13,7 +13,8 @@ app.factory('playerService', ['envService',function(env){
 			t_type +
 			",box-shadow " + serviceObj.speeds[serviceObj.speeds_index] + "s " + 
 			t_type +
-			",background-color " + "0.5s " +t_type ;
+			",background-color " + "0.5s " +t_type +
+			",transform 0.7s linear" ;
 
         for ( var i = 0 ; i < players.length ; i++ ){
         	players[i].transitionTo(env.current_frame_index);
@@ -23,7 +24,7 @@ app.factory('playerService', ['envService',function(env){
 
 	
 	serviceObj.toggleTransitionType = function(players,env){
-		console.log('toggling transition type..');
+//		console.log('toggling transition type..');
 		serviceObj.transition_type = ( serviceObj.transition_type == "linear" ? "cubic" : "linear" );
 		serviceObj.updateAnimationStyle(players,env);
 	}
@@ -41,8 +42,8 @@ app.factory('playerService', ['envService',function(env){
 //	serviceObj.transition_type = "all 5s linear";
 //	serviceObj.transition_type = "border-radius:0";
 	var GeneratedStyle = function(posX,posY,color,highlighted,ball){
-		this.top = ( posY * 40 ) + "px";
-		this.left = ( posX * 40 ) + "px";
+		this.top = ( posY * 28 ) + "px";
+		this.left = ( posX * 28 ) + "px";
 		this['background-color'] = color;
 //		this['box-shadow'] = ( highlighted ? "0px 0px 20px 6px " + color : "none" );
 		this['box-shadow'] = ( highlighted ? "0px 0px 30px 15px " + color : "none" );
@@ -50,6 +51,7 @@ app.factory('playerService', ['envService',function(env){
 		if ( typeof ball != "undefined"){
 			this['background-image'] = "url('./images/" + ball + ".png')"
 		}
+		this['transform'] = "rotateZ(" + (env.ball_rotation[env.current_3d_index]) * 90 + "deg)";
 	}	
 	serviceObj.GeneratedStyle = GeneratedStyle;
 	var transition = function(index){
@@ -69,18 +71,19 @@ app.factory('playerService', ['envService',function(env){
 
 //****************************** PLAY COMPRESSION / DECOMPRESSION
 	serviceObj.decompressPlay = function(env,css_colors,players,frameService){
+		
 		var first6_end_index = env.input_play.indexOf("_");
 		var first6 = env.input_play.substring(0,first6_end_index)
 		console.log('first6: ' + first6);
 		env.team1_temp_color_index = first6.substring(0,3);
 		env.team2_temp_color_index = first6.substring(3);
-		console.log('team 1 color index' + env.team1_temp_color_index);
+//		console.log('team 1 color index' + env.team1_temp_color_index);
 		var colors = [ 	css_colors[parseInt(first6.substring(0,3))],
 						css_colors[parseInt(first6.substring(3))	]
 			]
 		env.team1_temp_color = colors[0];
 		env.team2_temp_color = colors[1];
-		console.log('colors: ' + colors);
+//		console.log('colors: ' + colors);
 		env.input_play = env.input_play.substring(first6_end_index+1);
 		
 		var compressed_loaded_players = [];
@@ -99,7 +102,7 @@ app.factory('playerService', ['envService',function(env){
 		}
 		ball_style = players[players.length-1].current_style; 
 		players[players.length-1].jersey_number = "ball";
-		players[players.length-1].default_color = "aqua";
+		players[players.length-1].default_color = "transparent";
 		env.toggleSelected(players[players.length-1]);
 		env.updateSelectedPlayer(serviceObj);
 		env.toggleSelected(players[players.length-1]);
@@ -120,33 +123,35 @@ app.factory('playerService', ['envService',function(env){
 			player = ( player.substring(2) || "" );
 		}
 		for ( var i = 0 ; i < compressed_frames_array.length ; i++ ){
-			var dec_frame_number = (env.conversion_array.indexOf(compressed_frames_array[i][0])) * 30 + env.conversion_array.indexOf(compressed_frames_array[i][1]);
+			var dec_frame_number = (env.conversion_array.indexOf(compressed_frames_array[i][0])) * 45 + env.conversion_array.indexOf(compressed_frames_array[i][1]);
 			var highlighted = false;
-			if ( dec_frame_number > 599 ){
-				dec_frame_number = dec_frame_number - 600;
+			if ( dec_frame_number > 1478 ){
+				dec_frame_number = dec_frame_number - 1479;
 				team = 1;
 				highlighted = true;
-			} else if ( dec_frame_number > 399 ) {
-				dec_frame_number = dec_frame_number - 400;
+			} else if ( dec_frame_number > 985 ) {
+				dec_frame_number = dec_frame_number - 986;
 				team = 1;
-			} else if ( dec_frame_number > 199 ) {
-				dec_frame_number = dec_frame_number - 200;
+			} else if ( dec_frame_number > 492 ) {
+				dec_frame_number = dec_frame_number - 493;
 				highlighted = true;	
 			}
-			var posY = Math.floor(dec_frame_number / 20);
-			var posX = dec_frame_number % 20;
+			var posY = Math.floor(dec_frame_number / 29);
+			var posX = dec_frame_number % 29 ;
 			decompressed_frames_array.push({
 				posX: 			posX,
 				posY: 			posY,
 				highlighted: 	highlighted
 			});
 		}
+		console.log('decompressing from team ' + team);
 		player_color = colors[team];
 		var new_current_style = new GeneratedStyle(decompressed_frames_array[0].posX,decompressed_frames_array[0].posY,player_color,decompressed_frames_array[0].highlighted)
 		decompressed_player = new Player(player_color,jersey,new_current_style,decompressed_frames_array);
 		return decompressed_player
 	}
 	serviceObj.compressPlay = function(env, players){
+//		$location.search('play',env.current_sport);
 		var output = "" + env.team1_temp_color_index + env.team2_temp_color_index;
 		for ( var i = 0 ; i < players.length ; i++) {
 			output += "_";
@@ -156,18 +161,18 @@ app.factory('playerService', ['envService',function(env){
 			}
 		}
 		env.play_data_model = output;	
-		console.log('compressed whole play: ' + output);
+//		console.log('compressed whole play: ' + output);
 	}
 
 	serviceObj.compressFrame = function(conversion_arr, frame, color){
-		var calculated_position_number = frame.posY * 20 + parseInt(frame.posX);
+		var calculated_position_number = frame.posY * 29 + parseInt(frame.posX);
 		var offset = 0;
-		if ( frame.highlighted == true && color == 1 ) { offset = 200 } else 
-		if ( frame.highlighted == false && color == 2 ) { offset = 400 } else 
-		if ( frame.highlighted == true && color == 2 ) { offset = 600 }  
+		if ( frame.highlighted == true && color == 1 ) { offset = 493 } else 
+		if ( frame.highlighted == false && color == 2 ) { offset = 986 } else 
+		if ( frame.highlighted == true && color == 2 ) { offset = 1479 }  
 		calculated_position_number += offset;
-		compressed_frame1 = conversion_arr[(Math.floor(calculated_position_number / 30))];
-		compressed_frame2 = conversion_arr[(calculated_position_number % 30)];
+		compressed_frame1 = conversion_arr[(Math.floor(calculated_position_number / 45))];
+		compressed_frame2 = conversion_arr[(calculated_position_number % 45)];
 		compressed_frame = compressed_frame1 + compressed_frame2;
 		return compressed_frame;
 	
@@ -175,7 +180,7 @@ app.factory('playerService', ['envService',function(env){
 
 //******************************
 	serviceObj.newPlay = function(env,css_colors,players_array){
-		console.log('new play , players array : ' + players_array);
+//		console.log('new play , players array : ' + players_array);
 		players_array.length = 0;
 		env.selected_player = null;
 		env.frames.length = 0;
@@ -204,10 +209,11 @@ app.factory('playerService', ['envService',function(env){
 		for ( i = 0 ; i < env.team2_preview.length ; i++ ) {
 			this.add( env,env.team2_temp_color, env.default_positions2[i], i+env.team1_preview.length,players_array )
 		}
-		this.add( env,"aqua", [9,5], "ball", players_array )
+		this.add( env,"aqua", [14,8], "ball", players_array )
 		
 		
 		env.mode = "create";
+		env.save(this,players_array);
 	}
 
 
@@ -224,7 +230,7 @@ app.factory('playerService', ['envService',function(env){
 		if ( jersey == "ball" ) {
 			new_current_style['background-color']="none";
 			new_current_style['background-image'] = "url('./images/" + env.current_sport+ ".png')";
-			console.log('new_current_style.background: ' + new_current_style.background);
+//			console.log('new_current_style.background: ' + new_current_style.background);
 		}
 		players_array.push(new Player(color,jersey,new_current_style,new_current_frames));
 	}
