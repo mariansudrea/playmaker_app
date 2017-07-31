@@ -1,7 +1,7 @@
 app.factory('playerService', ['envService','$location',function(env,$location){
 	var serviceObj = {
 		speeds:  				[ 3,2.5,2,1.6,1.3,1,0.8,0.6 ],
-		speeds_index:			4, 
+		speeds_index:			5, 
 		transition_type: 		"linear",
 			
 	}
@@ -74,7 +74,7 @@ app.factory('playerService', ['envService','$location',function(env,$location){
 		
 		var first6_end_index = env.input_play.indexOf("_");
 		var first6 = env.input_play.substring(0,first6_end_index)
-		console.log('first6: ' + first6);
+		//console.log('first6: ' + first6);
 		env.team1_temp_color_index = first6.substring(0,3);
 		env.team2_temp_color_index = first6.substring(3);
 //		console.log('team 1 color index' + env.team1_temp_color_index);
@@ -144,7 +144,7 @@ app.factory('playerService', ['envService','$location',function(env,$location){
 				highlighted: 	highlighted
 			});
 		}
-		console.log('decompressing from team ' + team);
+		//console.log('decompressing from team ' + team);
 		player_color = colors[team];
 		var new_current_style = new GeneratedStyle(decompressed_frames_array[0].posX,decompressed_frames_array[0].posY,player_color,decompressed_frames_array[0].highlighted)
 		decompressed_player = new Player(player_color,jersey,new_current_style,decompressed_frames_array);

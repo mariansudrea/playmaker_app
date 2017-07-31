@@ -9,8 +9,13 @@
 		<div class="stop_square">
 		</div>
 	</div>
-	<div class="control_button gradient1 limePointerHover" style="width:50px;overflow:visible;" ng-click="env.toggleLoadMenu()">
+	<div class="control_button gradient1 limePointerHover" style="width:50px;overflow:visible;" ng-click="env.toggleLoadMenu()" ng-hide="env.playing">
 		Load
+	</div>
+	<div class="control_button gradient1 not_allowed" style="width:50px;overflow:visible;" ng-show="env.playing">
+		Load
+		<div class="overlay controls_overlay" ng-show="env.playing">
+		</div>
 	</div>
 		<div class="load_menu gradient1" ng-click="console.log('clicked')" ng-class="{load_menu_open: env.load_menu_visible}">
 			<div class="load_menu_title gradient1">	
@@ -18,14 +23,8 @@
 			</div>
 			
 			<div ng-repeat="i in env.sample_plays track by $index" class="load_option limePointerHover" ng-click="env.load(env.sample_plays[$index])">
-				{{ i[2] }}
+				<img height=20 width=20 style="margin-right:10px;vertical-align:-15%" ng-src="{{'./images/'+ i[1] + '.png'}}"/>{{ i[2] }}
 			</div>
-			<!--div class="load_option limePointerHover">
-				OPTION 1
-			</div>
-			<div class="load_option limePointerHover">
-				OPTION 1
-			</div-->
 		</div>
 	<div class="control_button gradient1 limePointerHover" style="width:100px" ng-click="env.save(player,players)">
 		Save to URL
@@ -36,7 +35,7 @@
 	<div ng-hide="env.playing" style="width:50px" class="control_button gradient1 limePointerHover" ng-click="env.modal_visible=true;env.updatePreviewTeams()">
 		New 	
 	</div>
-	<div style="width:50px" class="control_button gradient1" ng-show="env.playing">
+	<div style="width:50px" class="not_allowed control_button gradient1" ng-show="env.playing">
 		New 	
 		<div class="overlay controls_overlay" ng-show="env.playing">
 		</div>
@@ -113,11 +112,17 @@
 					<div class="h_faceoff h_dot8">
 					</div>
 		
+					<div class="h_left_goal_arc">
+					</div>
+					<div class="h_right_goal_arc">
+					</div>
+		
 					<div class="h_left_goal">
 					</div>
 					<div class="h_right_goal">
 					</div>
-		
+
+
 					<div class="h_halfway_line">
 					</div>
 					<div class="h_left_blue_line">
@@ -279,20 +284,11 @@
 			Alternate Play
 		</h2>
 		<hr>
-		<p>
 			
-			The Alternate Play simulator allows you to convey your drill and gameplan ideas without X's,  O's and confusing lines.
-		<ul>
-			<li>
-			 	Design your play then animate it. 
-			</li>
-			<li>
-			 	Share with your team through email link. Your plays are never stored, giving you complete privacy. 
-			</li>
-			<li>
-				Switch to 3D perspective to better visualize movement and positioning patterns.
-			</li>
-		</ul>
+		<p style="text-align:left">
+			<div class="arrow_right"></div>Convey simple drill and set play ideas to your team. </br></br>
+			<div class="arrow_right"></div> Use as a static drawing board, or create a play frame by frame and animate.  		</br></br>	
+			<div class="arrow_right"></div> Share with your team through link. No log-ins or accounts required. 			
 		</p>
 		<h2>
 			Controls / How to Use
@@ -302,7 +298,7 @@
 			Frames
 		</h4>
 		<p>
-			Each play consists of a set of player positions. These frames or snapshots are equally spaced in time during animation. Start at frame 1, set initial positions, then add more frames to design your play. 
+			Each play consists of up to 10 player positions. These snapshots are equally spaced in time during animation. Set initial positions, then add more frames to complete your play. 
 		</p>
 		<h4>
 			Edit / Create Mode
@@ -320,17 +316,17 @@
 			Animations can be done with players moving at the same speed in robotic fashion, or you can choose natural movement in which objects accelerate from the origin, then slow down when approaching their destination. 
 		</p>
 		<h4>
-			Saving your play
+			Saving and sharing your play
 		</h4>
 		<p>
-			We don't record any plays on our servers, and there are no log-ins or usernames, so you are responsible for storage of your plays. The long ugly string at the top of your browser, created when you press "SAVE TO URL" is your encoded play. You can save this in a text file, email, or any kind of online storage service ( Dropbox, Google Drive, etc. ). 
+			Alternate Play doesn't record any plays, and there are no log-ins or usernames, so you are responsible for storage of your plays. </br>To store or share your play, press "SAVE TO URL". This newly created URL can be used at any time to view the play.
 		</p>
 		<h2>
-			System Requirements
+			Browser Requirements
 		</h2>
 		<hr>
 		<p>
-			This app uses browser features that are not available if you are running Internet Explorer 9 or an earlier version. Similarly, outdated versions of Chrome, Safari, Firefox, etc. might prevent the app from displaying properly. A quick automatic update of your browser should fix any compatibility issues. 
+			This app uses browser features that might not available if you are running Internet Explorer 9 or an earlier version. Similarly, outdated versions of Chrome, Safari, Firefox, etc. might prevent the app from displaying properly. A quick automatic update of your browser should fix any compatibility issues. 
 		</p>
 		<h2>
 			Support this Project !

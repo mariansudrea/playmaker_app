@@ -11,7 +11,7 @@ font-family: 'Droid Sans', sans-serif;
 }
 .view_container
 {
-user-select:none;
+/*user-select:none;*/
 margin: 15px auto 0;
 width:812px;
 height:auto;
@@ -282,7 +282,7 @@ width:25%;
 height:40px;
 line-height:40px;
 font-size:14px;
-margin: 20px 0 20px 37%;
+margin: 26px 0 20px 37%;
 /*border:1px solid black;*/
 border-radius:13px;
 box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.75);
@@ -457,7 +457,7 @@ position:relative;
 .logo
 {
 width:150px;
-height:30px;
+height:28px;
 line-height:30px;
 font-size:14px;
 position:relative;
@@ -850,7 +850,7 @@ left:679px;
 top:315px;
 }
 
-.h_left_goal
+.h_left_goal_arc
 {
 position:absolute;
 width:30px;
@@ -862,7 +862,7 @@ border:1px solid red;
 top:179px;
 left:45px;
 }
-.h_right_goal
+.h_right_goal_arc
 {
 position:absolute;
 width:30px;
@@ -873,6 +873,28 @@ border-bottom-left-radius:30px;
 border:1px solid red;
 top:179px;
 left:734px;
+}
+.h_left_goal
+{
+position:absolute;
+width:20px;
+height:50px;
+border-top-left-radius:10px;
+border-bottom-left-radius:10px;
+border:1px solid red;
+top:184px;
+left:25px;
+}
+.h_right_goal
+{
+position:absolute;
+width:20px;
+height:50px;
+border-top-right-radius:10px;
+border-bottom-right-radius:10px;
+border:1px solid red;
+top:184px;
+left:765px;
 }
 
 
@@ -898,7 +920,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7aa084', end
 }
 .sport_controls
 {
-width:1000px;
+width:812px;
 height:75px;
 position:relative;
 float:left;
@@ -946,7 +968,7 @@ transition: all 0.7s;
 .outer_wrapper
 {
 margin-top:10px;
-width:auto;
+width:100%;
 height:auto;
 position:relative;
 float:left;
@@ -970,7 +992,7 @@ margin-top:-476px;
 {
 position:absolute;
 width:0px;
-height:240px;
+height:210px;
 top:45px;
 left:110px;
 overflow:hidden;
@@ -987,7 +1009,7 @@ transition: 0.2s width, 0.2s left;
 color:white !important;
 box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.75);
 left:30px;
-height:240px;
+height:210px;
 width:160px;
 z-index:3;
 }
@@ -1029,4 +1051,24 @@ cursor:pointer;
 .not_allowed:hover
 {
 cursor: not-allowed;
+}
+.arrow_right
+{
+width:0px;
+height:0px;
+border-width: 10px 10px 10px 10px;
+border-style:solid;
+border-color: transparent transparent transparent #66cc66 ;
+position:relative;
+float:left;
+margin-left:30px
+
+}
+.gradient3
+{
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7db9e8+0,1e5799+100&0+0,1+100 */
+background: -moz-linear-gradient(left, rgba(125,185,232,0) 0%, rgba(30,87,153,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left, rgba(125,185,232,0) 0%,rgba(30,87,153,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right, rgba(125,185,232,0) 0%,rgba(30,87,153,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', endColorstr='#1e5799',GradientType=1 ); /* IE6-9 */
 }

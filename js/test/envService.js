@@ -21,8 +21,9 @@ app.factory('envService',['$rootScope','$timeout','$location','$anchorScroll', f
 	var sample_plays = [
 		["147009_757575757575757575_2y2y2y2y2y2y2y2y2y_3b3b3b3b3b3b3b3b3b_3f3f3f3f3f3f3f3f3f_8q8q8q8q8q8q8q8q8q_tDtDt9t9sot9t9t9tb_p9p9qnpDp9p9p9p9p9_t3t3t3skt3t3t3t3t3_pgpgpgpgpIqrpIpIq0_rarar8rBrDrararara_r9qjqkqlqlqlqlqlr9","basketball","Free Throw"],
 		["082007_5f5f5f5f_5q5q5q5q_72727272_0n0n1717_89898989_2m3B3B3B_8H8e8e8e_r1r1r1qg_qHqHqepu_sbsbsbsb_p4pypypy_rrrrrrqI_sIsIsIsI_totototo_rnrnnwsf","arenasoccer","Free Kick"],
-		["082007_5f5f5f5f_5q5q5q5q_6i6i6i6i_1y1y1y1y_89898989_2m2m2m2m_8H8H8H8H_r1r1r1r1_qHqHqHqH_sbsbsbsb_p4p4p4p4_rrrrrrrr_sfsfsfsf_sGsGsGsG_rnrnrnrn","arenasoccer","Free Throw"],
-		["082007_5f5f5f5f_5q5q5q5q_6i6i6i6i_1y1y1y1y_89898989_2m2m2m2m_8H8H8H8H_r1r1r1r1_qHqHqHqH_sbsbsbsb_p4p4p4p4_rrrrrrrr_sfsfsfsf_sGsGsGsG_rnrnrnrn","arenasoccer","Free Throw"]
+		["106066_9m9m9m9m9m8A84_5m5o4F4F4F4946_505r5r6e6i6e6b_0s0s0s0s0s1714_aFaFaFaFaFaC9m_qGrpqEq9q9qAqw_nAnAnAp3qhqiqi_vovovoubtrtrsH_rms7s7rorqrnqB_u7u7u7u7u7u7u5_rjs4qCsbruruqh","basketball","Pick n Roll"],
+		["121076_5i484c4f5v6g6g_rtrtrtrtrtsdru_rfqyq9qFscsbr","icehockey","Penalty Shot"],
+		["107056_5959594o_3p3o3n3m_5h5h5i4z_262A2A2A_6w6w6w6u_0G0F1n24_9d9d9d8q_rtrtrsrr_s3rirhrg_oxoxoxpg_ocoDoDo8_uvuvuvth_xCx7xxyd_vbvbvbuq_oEoyrgnH","associationfootball","Basic Buildup"]
 	];
 	var field_styles = {
 		'associationfootball': {//'background-color': "rgba(44, 140, 25, 0.5)",
@@ -85,8 +86,8 @@ app.factory('envService',['$rootScope','$timeout','$location','$anchorScroll', f
 		team1_temp_color_index:	"003",
 		team2_temp_color_index:	"082",
 		test:					function(){console.log('testing')},
-		default_positions1:	 	[ [2,8],[12,8],[10,8],[9,3],[9,13],[13,1],[13,15],[13,6],[13,14],[13,15],[13,1] ],
-		default_positions2:	 	[ [26,8],[16,8],[18,8],[19,3],[19,13],[15,1],[15,15],[16,2],[16,4],[17,4],[17,7] ]
+		default_positions1:	 	[ [2,8],[12,8],[10,8],[9,3],[9,13],[13,1],[13,15],[7,8],[12,5],[12,11],[13,3] ],
+		default_positions2:	 	[ [26,8],[16,8],[18,8],[19,3],[19,13],[15,1],[15,15],[21,8],[16,5],[16,11],[15,3] ]
 	}
 	
 	env.randomize = function(team_number,colors){
@@ -193,7 +194,8 @@ app.factory('envService',['$rootScope','$timeout','$location','$anchorScroll', f
 					});		
 	}
 	env.load = function(play){
-		console.log('loading');
+		//console.log('loading');
+		env.current_frame_index = 0;
 		$location.search({	'play': play[0],
 							's': play[1]
 					});		
@@ -212,8 +214,8 @@ app.factory('envService',['$rootScope','$timeout','$location','$anchorScroll', f
 		env.load_menu_visible = ( env.load_menu_visible == true ? false : true )
 	}
 	env.toggle3d = function(players){
-		console.log('toggle 3d triggered');
-		console.log('stage / old index: ' + env.current_3d_index);
+		//console.log('toggle 3d triggered');
+		//console.log('stage / old index: ' + env.current_3d_index);
 		env.current_3d_index = ( env.current_3d_index != env.field_styles_3d.length-1 ? env.current_3d_index + 1 : 0 );
         for ( var i = 0 ; i < players.length ; i++ ){
             players[i].transitionTo(env.current_frame_index);

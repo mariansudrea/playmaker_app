@@ -20,10 +20,10 @@ app.controller('testController', ['playerService','envService','frameService','c
 	});
 	var input_play_validation = /^[0-9]{6}_[a-zA-Z0-9_]+$/
 	if ( input_play_validation.test($location.search().play) == false ) {
-		console.log("Input play don't look right..")
+		console.log("Input play donesn't look right..")
 	}
 	if ( typeof $location.search().play != undefined && input_play_validation.test($location.search().play)) {
-		console.log('location.search.play: ' + $location.search().play);
+//		console.log('location.search.play: ' + $location.search().play);
 		$scope.env.input_play = $location.search().play;
 		$scope.players = [];	
 		$scope.player.decompressPlay($scope.env,$scope.css_colors,$scope.players,$scope.frameService);
