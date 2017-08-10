@@ -1,0 +1,19 @@
+app = angular.module('soccer_playmaker', ['ui.router']);
+
+app.config([
+'$stateProvider',
+'$urlRouterProvider',
+function($stateProvider, $urlRouterProvider) {
+
+      $stateProvider
+      	.state('app', {
+          	url: '/app',
+			templateUrl: '/js/test/_test.html',
+			controller: 'appController'
+		});
+		$urlRouterProvider.otherwise('app');
+}])
+
+
+
+

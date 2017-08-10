@@ -565,7 +565,7 @@ top:9px;
 left:9px;
 /*border-radius:8px;*/
 /*background-color:rgb(237, 218, 125);*/
-background:url('/images/hardwood.jpg');
+background:url('./images/hardwood.jpg');
 }
 
 
@@ -806,7 +806,7 @@ top:266px;
 position:absolute;
 width:0;
 height:0;
-border-radius:7px;
+border-radius:8px;
 border:7px solid red;
 }
 .h_dot1
